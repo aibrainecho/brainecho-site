@@ -4,29 +4,32 @@
 @plugin "@tailwindcss/forms";
 
 @theme {
-  --color-brand-50: #f0f7ff;
-  --color-brand-100: #e0effe;
-  --color-brand-200: #bae0fd;
-  --color-brand-300: #7cc8fb;
-  --color-brand-400: #36aaf5;
-  --color-brand-500: #0c8ee7;
-  --color-brand-600: #0070c4;
-  --color-brand-700: #015a9f;
-  --color-brand-800: #064c83;
-  --color-brand-900: #0b406d;
-  --color-brand-950: #072a4a;
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #d9e5ff;
+  --color-brand-200: #bcccff;
+  --color-brand-300: #8ea8ff;
+  --color-brand-400: #5a7df5;
+  --color-brand-500: #0047ab;
+  --color-brand-600: #003a8d;
+  --color-brand-700: #002e70;
+  --color-brand-800: #002154;
+  --color-brand-900: #001638;
+  --color-brand-950: #000d24;
 
-  --color-accent-50: #f0fdfa;
-  --color-accent-100: #ccfbef;
-  --color-accent-200: #99f6e0;
-  --color-accent-300: #5feacd;
-  --color-accent-400: #2dd4b5;
-  --color-accent-500: #14b89c;
-  --color-accent-600: #0d9480;
-  --color-accent-700: #0f766e;
-  --color-accent-800: #115e59;
-  --color-accent-900: #134e4a;
-  --color-accent-950: #042f2e;
+  --color-accent-50: #edf5fd;
+  --color-accent-100: #d4e6fa;
+  --color-accent-200: #a9cdf5;
+  --color-accent-300: #7eb4f0;
+  --color-accent-400: #539beb;
+  --color-accent-500: #4a90d9;
+  --color-accent-600: #3b73ad;
+  --color-accent-700: #2c5782;
+  --color-accent-800: #1e3b57;
+  --color-accent-900: #0f1f2c;
+
+  --color-lime-400: #7fff00;
+  --color-lime-500: #6be000;
+  --color-lime-600: #56b800;
 
   --font-sans:
     Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -35,42 +38,35 @@
   --animate-fade-in: fadeIn 0.6s ease-out forwards;
   --animate-slide-up: slideUp 0.6s ease-out forwards;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-wave: wave 3s ease-in-out infinite;
+  --animate-pulse-slow: pulseSlow 4s ease-in-out infinite;
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes slideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we need this override.
-*/
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
 * {
   border-color: color-mix(in srgb, currentColor 10%, transparent);
 }
@@ -81,16 +77,9 @@ html {
 
 body {
   background-color: #fff;
-  color: #111827;
+  color: #1f2937;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family:
-    Pretendard,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
 }
 
 @utility section-container {
@@ -110,27 +99,14 @@ body {
 }
 
 @utility gradient-text {
-  background-image: linear-gradient(to right, var(--color-brand-600), var(--color-accent-400));
+  background-image: linear-gradient(to right, var(--color-brand-500), var(--color-accent-400));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 @utility gradient-bg {
-  background-image: linear-gradient(to bottom right, var(--color-brand-950), var(--color-brand-900), var(--color-brand-800));
-}
-
-@utility glass-card {
-  border-radius: 1rem;
-  border: 1px solid color-mix(in srgb, white 10%, transparent);
-  background-color: color-mix(in srgb, white 5%, transparent);
-  padding: 1.5rem;
-  backdrop-filter: blur(4px);
-  transition: all 300ms;
-  &:hover {
-    border-color: color-mix(in srgb, white 20%, transparent);
-    background-color: color-mix(in srgb, white 10%, transparent);
-  }
+  background-image: linear-gradient(to bottom right, #001428, var(--color-brand-900), var(--color-brand-700));
 }
 
 @utility btn-primary {
@@ -138,15 +114,15 @@ body {
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.75rem;
-  background-image: linear-gradient(to right, var(--color-brand-600), var(--color-accent-500));
+  background: var(--color-brand-500);
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   color: #fff;
-  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--color-brand-600) 25%, transparent);
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--color-brand-500) 30%, transparent);
   transition: all 300ms;
   &:hover {
-    box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--color-brand-600) 30%, transparent);
-    filter: brightness(1.1);
+    background: var(--color-brand-600);
+    box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--color-brand-500) 40%, transparent);
     cursor: pointer;
   }
 }
@@ -156,13 +132,13 @@ body {
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.75rem;
-  border: 2px solid var(--color-brand-600);
+  border: 2px solid var(--color-brand-500);
   padding: 0.75rem 1.5rem;
   font-weight: 600;
-  color: var(--color-brand-600);
+  color: var(--color-brand-500);
   transition: all 300ms;
   &:hover {
-    background-color: var(--color-brand-600);
+    background: var(--color-brand-500);
     color: #fff;
     cursor: pointer;
   }
@@ -174,12 +150,8 @@ body {
   font-weight: 700;
   letter-spacing: -0.025em;
   color: #111827;
-  @media (width >= 40rem) {
-    font-size: 2.25rem;
-  }
-  @media (width >= 64rem) {
-    font-size: 3rem;
-  }
+  @media (width >= 40rem) { font-size: 2.25rem; }
+  @media (width >= 64rem) { font-size: 3rem; }
 }
 
 @utility section-subtitle {
