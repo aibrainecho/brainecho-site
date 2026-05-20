@@ -37,12 +37,12 @@ const advantages = [
 ];
 
 const milestones = [
-  { year: "2016~2019", event: "음성 AI 스크리닝 원천 기술 개발 / GVC V1.0 최초 개발 / AWS 전략적 제휴" },
-  { year: "2018", event: "음성분석 상표권 등록 + 특허 등록 (No.10-1908***) — 원천 기술 IP 확보" },
-  { year: "2024.07", event: "법인 재설립 — e-GVC / e-ScMS 2세대 DNN 고도화 착수" },
-  { year: "2025.02", event: "연구개발전담부서 인정 / 예송음성센터 MOU (35개국) / 그립 AIoT 협정" },
-  { year: "2025.06", event: "삼성전자 URecA 2.0 컨텐츠 개인화 플랫폼 참여 (→2026.06)" },
-  { year: "2026.01", event: "소프트웨어 응용솔루션 개발업 상표권 등록 (제42류)" },
+  { yearLine1: "2016", yearLine2: "~2019", event: "R&D Foundation — 음성 분석 AI 핵심 원천 기술 연구 개발 시작. GVC(Good Voice Care) 프로토타입 개발성공. 공공 연구개발 성공적 수행." },
+  { yearLine1: "2020", yearLine2: "~2023", event: "다수 특허 등록 및 음성 분석 기술 고도화. 원천 기술 IP 확보. AI 플랫폼 기반 기술 체계 구축." },
+  { yearLine1: "2024", yearLine2: "", event: "Technology Startup — 주식회사 브레인에코 기술기반 창업(성실경영자확인). S전자 등 기업 협력 프로젝트 진행. AI 플랫폼 고도화 및 다수 코어기반 기술 체계 구축 시작." },
+  { yearLine1: "2025", yearLine2: ".02", event: "연구개발전담부서 인정 / 예송음성센터 MOU (35개국) / 그립 AIoT 협정" },
+  { yearLine1: "2025", yearLine2: ".06", event: "삼성전자 URecA 2.0 컨텐츠 개인화 플랫폼 참여 (→2026.06)" },
+  { yearLine1: "2026", yearLine2: ".01", event: "소프트웨어 응용솔루션 개발업 상표권 등록 (제42류)" },
 ];
 
 function MarketChart() {
@@ -159,13 +159,15 @@ export default function Evidence() {
           </h3>
           <div className="relative">
             <div className="absolute left-6 top-0 h-full w-0.5 bg-gradient-to-b from-brand-300 via-accent-300 to-brand-300" />
-            <div className="space-y-6">
-              {milestones.map((m, i) => (
-                <div key={m.year} className="relative flex items-start gap-6 pl-0">
-                  <div className="z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-md border-2 border-brand-200">
-                    <span className="text-[10px] font-bold leading-tight text-brand-600 text-center">{m.year.split("~")[0]}<br />{m.year.includes("~") ? "~" + m.year.split("~")[1] : ""}</span>
+            <div className="space-y-3">
+              {milestones.map((m) => (
+                <div key={m.yearLine1 + m.yearLine2} className="relative flex items-start gap-4">
+                  <div className="z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow border-2 border-brand-200">
+                    <span className="font-bold leading-tight text-brand-600 text-center" style={{fontSize: "9px"}}>
+                      {m.yearLine1}<br />{m.yearLine2}
+                    </span>
                   </div>
-                  <div className="flex-1 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+                  <div className="flex-1 rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
                     <p className="text-sm leading-relaxed text-gray-700">{m.event}</p>
                   </div>
                 </div>

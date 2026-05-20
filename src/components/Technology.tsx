@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   AudioWaveform, CircuitBoard, Cpu, Radio,
   AppWindow, Microscope, Brain, ShieldPlus,
+  ScrollText, Stamp,
 } from "lucide-react";
 
 type Module = {
@@ -166,6 +167,54 @@ export default function Technology() {
               </div>
             </div>
             <AccuracyChart />
+          </div>
+        </div>
+
+        {/* IP & Patents Section */}
+        <div className={`mx-auto mt-20 max-w-5xl rounded-2xl border border-gray-100 bg-white p-8 shadow-sm lg:p-10 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+             style={{ transitionDelay: "0.7s", transition: "all 0.7s" }}>
+          <h3 className="mb-2 text-center text-2xl font-bold text-gray-900">
+            기술 <span className="gradient-text">특허·상표권</span> 현황
+          </h3>
+          <p className="mb-8 text-center text-sm text-gray-500">기술 연구개발 중심 기업 — 독자 IP로 구축한 핵심 경쟁력</p>
+          
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Patents */}
+            <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-brand-50 to-white p-6">
+              <div className="mb-4 flex items-center gap-2">
+                <ScrollText size={20} className="text-brand-600" />
+                <h4 className="text-lg font-bold text-gray-900">특허</h4>
+              </div>
+              <ul className="space-y-3">
+                <li className="rounded-lg bg-white p-3 text-sm text-gray-700 shadow-sm border border-gray-100">
+                  <span className="font-medium text-brand-600">출원</span> — No.10-2026-0085***<br />
+                  생체 신호 분석 기반 개인화 폐루프 뇌파 동조 시스템 및 그 방법
+                </li>
+                <li className="rounded-lg bg-white p-3 text-sm text-gray-700 shadow-sm border border-gray-100">
+                  <span className="font-medium text-brand-600">등록</span> — No.10-2298***<br />
+                  스마트폰을 이용한 목소리 질환 조기진단 시스템 및 방법
+                </li>
+                <li className="rounded-lg bg-white p-3 text-sm text-gray-700 shadow-sm border border-gray-100">
+                  <span className="font-medium text-brand-600">등록</span> — No.10-1908***<br />
+                  머신러닝을 통해 환경변수 영향을 개선한 음성 질환 진단 시스템
+                </li>
+              </ul>
+            </div>
+
+            {/* Trademarks */}
+            <div className="rounded-xl border border-gray-100 bg-gradient-to-br from-accent-50 to-white p-6">
+              <div className="mb-4 flex items-center gap-2">
+                <Stamp size={20} className="text-accent-600" />
+                <h4 className="text-lg font-bold text-gray-900">상표권 (AI 플랫폼 사업)</h4>
+              </div>
+              <ul className="space-y-3">
+                {["제40-2490***호", "제40-2166***호", "제40-1678***호", "제40-1351***호"].map((reg) => (
+                  <li key={reg} className="rounded-lg bg-white p-3 text-sm text-gray-700 shadow-sm border border-gray-100">
+                    <span className="font-medium text-accent-600">등록</span> — {reg}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -7,8 +7,8 @@ import {
 } from "lucide-react";
 
 const stats = [
-  { label: "Founded", value: "2016", sub: "(Re-est. 2024)" },
-  { label: "IP Assets", value: "4", sub: "Trademark + Patent" },
+  { label: "Founded", value: "2016", sub: "(Tech Startup 2024)" },
+  { label: "IP Assets", value: "7", sub: "Patent + Trademark" },
   { label: "R&D Dept", value: "인증", sub: "과학기술정보통신부" },
   { label: "Partners", value: "35", sub: "글로벌 채널" },
 ];
