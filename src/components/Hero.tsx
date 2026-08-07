@@ -1,167 +1,145 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Sparkles, Shield, Mic, Activity } from "lucide-react";
+import { ChevronDown, Heart, Brain, Users } from "lucide-react";
 
-function WaveformSVG() {
+const pillars = [
+  { icon: Heart, label: "헬스케어 AI", color: "#0047AB", count: 3 },
+  { icon: Brain, label: "인텔리전스 AI", color: "#00BFA5", count: 4 },
+  { icon: Users, label: "관계·문화 AI", color: "#FF6B9D", count: 2 },
+];
+
+const stats = [
+  { value: "9", label: "AI 플랫폼·엔진", color: "#0047AB" },
+  { value: "200+", label: "Global Studies", color: "#0047AB" },
+  { value: "7", label: "IP (특허·상표)", color: "#0047AB" },
+  { value: "35", label: "MOU 연계 35개국", color: "#0047AB" },
+];
+
+function WaveBars() {
+  const bars = Array.from({ length: 38 }, (_, i) => ({
+    h: 22 + Math.sin(i * 0.7) * 20 + Math.sin(i * 0.25) * 12,
+    op: 0.35 + Math.abs(Math.sin(i * 0.5)) * 0.5,
+  }));
   return (
-    <svg
-      className="absolute inset-0 h-full w-full opacity-[0.08]"
-      viewBox="0 0 1200 400"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <defs>
-        <linearGradient id="wave-grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#4A90D9" />
-          <stop offset="50%" stopColor="#7FFF00" />
-          <stop offset="100%" stopColor="#4A90D9" />
-        </linearGradient>
-      </defs>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((row) => (
-        <g key={row} opacity={0.15 + row * 0.1}>
-          {Array.from({ length: 40 }, (_, i) => {
-            const x = 30 + i * 30;
-            const phase = i * 0.3 + row * 0.5;
-            const h = 20 + Math.sin(phase) * 15;
-            return (
-              <rect
-                key={i}
-                x={x}
-                y={200 - h / 2 + (row - 3.5) * 40}
-                width="6"
-                height={h}
-                rx="3"
-                fill="url(#wave-grad)"
-                className="origin-center"
-                style={{
-                  animation: `wave ${1.5 + Math.sin(phase) * 0.5}s ease-in-out infinite`,
-                  animationDelay: `${phase * 0.2}s`,
-                }}
-              />
-            );
-          })}
-        </g>
+    <div className="flex items-center gap-[3px]">
+      {bars.map((b, i) => (
+        <div
+          key={i}
+          className="w-[4px] rounded-sm"
+          style={{
+            height: b.h,
+            opacity: b.op,
+            background: "#0047AB",
+            animation: `waveBar ${1.5 + Math.sin(i * 0.5) * 0.5}s ease-in-out infinite`,
+            animationDelay: `${i * 0.05}s`,
+          }}
+        />
       ))}
-    </svg>
+    </div>
   );
 }
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  useEffect(() => { setIsVisible(true); }, []);
 
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
-    >
+    <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 gradient-bg">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 25% 25%, rgba(255,255,255,0.15) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-white to-gray-50"
+      >
+        <div className="absolute -left-32 -top-32 h-[600px] w-[600px] animate-float rounded-full opacity-[0.08] blur-[120px]"
+          style={{ background: "radial-gradient(circle, rgba(0,71,171,0.10) 0%, transparent 70%)" }}
         />
-        {/* Orbs */}
-        <div className="absolute -left-32 -top-32 h-[600px] w-[600px] animate-float rounded-full bg-gradient-to-br from-brand-500/20 to-accent-400/10 blur-[120px]" />
-        <div className="absolute -bottom-32 -right-32 h-[500px] w-[500px] animate-float rounded-full bg-gradient-to-tr from-lime-400/10 to-brand-500/20 blur-[120px] [animation-delay:-3s]" />
-        {/* Waveform */}
-        <WaveformSVG />
+        <div className="absolute -bottom-32 -right-32 h-[500px] w-[500px] animate-float rounded-full opacity-[0.04] blur-[120px] [animation-delay:-3s]"
+          style={{ background: "radial-gradient(circle, rgba(0,71,171,0.06) 0%, transparent 70%)" }}
+        />
       </div>
 
-      {/* Content */}
+      {/* Main content starts */}
+
       <div className="relative z-10 section-container text-center">
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          {/* Badges */}
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/70 backdrop-blur-sm">
-              <Sparkles size={12} className="text-lime-400" />
-              AI Voice Biomarker
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/70 backdrop-blur-sm">
-              <Shield size={12} className="text-lime-400" />
-              Digital Healthcare
-            </span>
+        <div className={`transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
+          {/* Company tag */}
+          <div className="mb-6" />
+
+          {/* Pillar Badges */}
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+            {pillars.map((p) => (
+              <div
+                key={p.label}
+                className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm"
+                style={{
+                  background: "rgba(0,71,171,0.08)",
+                  border: `1px solid ${p.color}44`,
+                  color: p.color,
+                }}
+              >
+                <p.icon size={16} />
+                <span className="font-bold">{p.label}</span>
+                <span style={{ color: "#94A3B8" }}>{p.count}개</span>
+              </div>
+            ))}
           </div>
 
-          {/* Tagline */}
-          <p className="mb-4 text-sm font-medium tracking-[0.2em] text-lime-400/80 uppercase">
-            Connecting Neural Intelligence to Digital Reality
-          </p>
-
           {/* Main Title */}
-          <h1 className="text-balance text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            목소리로 질병을
+          <h1 className="text-balance text-4xl font-black leading-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            style={{ color: "#1e293b" }}>
+            인공지능으로 연결하는
             <br />
-            <span className="gradient-text">먼저 발견한다</span>
+            <span style={{ color: "#0047AB" }}>건강,</span>{" "}
+            <span style={{ color: "#4A90D9" }}>지식,</span>{" "}
+            <span style={{ color: "#FF6B9D" }}>관계</span>
           </h1>
-          <p className="text-balance mt-3 text-lg text-white/40 sm:text-xl">
-            AI가 의료 접근성의 격차를 닫습니다
+
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed sm:text-lg"
+            style={{ color: "#64748B" }}>
+            AI 음성 건강진단 · 뇌파-음성 융합분석 · 시장 예측·분석
+            <br />
+            법률 리스크 대응 · 가족 관계 플랫폼 · 문화 AI 분석
+            <br />
+            <span style={{ color: "#475569" }}>9개 AI 플랫폼을 운영하는 멀티도메인 AI 기술 기업</span>
           </p>
 
-          {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/50 sm:text-lg">
-            30초 발성으로 30+ 음향 파라미터를 분석,
-            <br className="hidden sm:block" />
-            5분 만에 후두암·파킨슨·우울증 스크리닝 결과를 제공합니다.
-          </p>
+          {/* Wave Animation */}
+          <div className="mx-auto mt-8 flex justify-center">
+            <WaveBars />
+          </div>
 
-          {/* Stats Row */}
-          <div className="mx-auto mt-10 flex max-w-lg flex-wrap justify-center gap-8 border-t border-white/10 pt-8">
-            {[
-              { label: "AI 정확도", value: "95%", color: "text-lime-400" },
-              { label: "분석 시간", value: "<5분", color: "text-accent-300" },
-              { label: "커버 질환", value: "4종", color: "text-accent-300" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-                <div className="mt-1 text-xs text-white/40">{s.label}</div>
+          {/* KPI Stats */}
+          <div className="mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-8"
+            style={{ borderTop: "1px solid #e2e8f0", paddingTop: "2rem" }}>
+            {stats.map((s) => (
+              <div key={s.label} className="text-center min-w-[100px]">
+                <div className="text-3xl font-black"
+                  style={{ color: "#0047AB" }}>
+                  {s.value}
+                </div>
+                <div className="text-sm font-medium" style={{ color: "#64748B" }}>
+                  {s.label}
+                </div>
               </div>
             ))}
           </div>
 
           {/* CTA */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="#technology"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#technology")?.scrollIntoView({ behavior: "smooth" });
+            <button
+              onClick={() => {
+                document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
               }}
               className="btn-primary text-base"
             >
-              <Mic size={18} />
-              기술 살펴보기
-              <ChevronDown size={16} />
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="inline-flex items-center gap-2 rounded-xl border-2 border-white/20 px-6 py-3 text-base font-semibold text-white transition-all hover:bg-white/10"
-            >
-              <Activity size={18} />
-              문의하기
-            </a>
+              플랫폼 살펴보기 <ChevronDown size={16} />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce">
-        <ChevronDown size={20} className="text-white/30" />
+        <ChevronDown size={20} style={{ color: "rgba(100,116,139,0.5)" }} />
       </div>
     </section>
   );

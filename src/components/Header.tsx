@@ -10,7 +10,6 @@ const navItems = [
   { label: "Products", href: "#services" },
   { label: "Evidence", href: "#evidence" },
   { label: "Notice", href: "#notice" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Header() {
@@ -21,7 +20,6 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      // Active section detection
       const sections = navItems.map((i) => i.href.slice(1));
       for (const s of sections.reverse()) {
         const el = document.getElementById(s);
@@ -45,26 +43,19 @@ export default function Header() {
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 shadow-lg backdrop-blur-md"
+          ? "bg-white/95 shadow-lg backdrop-blur-md border-b border-gray-100"
           : "bg-transparent"
       }`}
     >
       <div className="section-container flex h-16 items-center justify-between">
-        {/* Logo */}
         <a
           href="#hero"
           onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}
           className="flex items-center gap-2"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white">
-            B
-          </div>
-          <span className={`text-xl font-bold transition-colors ${isScrolled ? "text-gray-900" : "text-white"}`}>
-            Brain<span className="text-lime-400">Echo</span>
-          </span>
+          <img src="/brand-logo.png?v=1" alt="BrainEcho" className="h-7 w-auto" />
         </a>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-0.5 md:flex">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
@@ -72,39 +63,28 @@ export default function Header() {
               <button
                 key={item.href}
                 onClick={() => handleNavClick(item.href)}
-                className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors lg:text-sm ${
-                  isScrolled
-                    ? `${isActive ? "bg-brand-50 text-brand-600" : "text-gray-600 hover:bg-gray-100 hover:text-brand-600"}`
-                    : `${isActive ? "bg-white/10 text-white" : "text-white/70 hover:bg-white/10 hover:text-white"}`
-                }`}
+                className="rounded-lg px-3 py-2 text-xs font-medium transition-colors lg:text-sm"
+                style={{
+                  color: isActive ? "#0047AB" : "#64748B",
+                  background: isActive ? "rgba(0,71,171,0.08)" : "transparent",
+                }}
               >
                 {item.label}
               </button>
             );
           })}
-          <a
-            href="/admin"
-            className={`ml-2 rounded-lg px-3 py-2 text-xs font-medium transition-colors lg:text-sm ${
-              isScrolled
-                ? "bg-brand-500 text-white hover:bg-brand-600"
-                : "bg-white/10 text-white hover:bg-white/20"
-            }`}
-          >
-            Admin
-          </a>
         </nav>
 
-        {/* Mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`rounded-lg p-2 md:hidden ${isScrolled ? "text-gray-900" : "text-white"}`}
+          className="rounded-lg p-2 md:hidden text-gray-500"
         >
           {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="border-t border-gray-100 bg-white md:hidden shadow-lg">
+        <div className="md:hidden bg-white shadow-lg border-t border-gray-100">
           <div className="section-container flex flex-col gap-0.5 py-3">
             {navItems.map((item) => (
               <button
@@ -115,9 +95,6 @@ export default function Header() {
                 {item.label}
               </button>
             ))}
-            <a href="/admin" className="mt-2 rounded-lg bg-brand-500 px-4 py-3 text-center text-sm font-medium text-white">
-              Admin
-            </a>
           </div>
         </div>
       )}

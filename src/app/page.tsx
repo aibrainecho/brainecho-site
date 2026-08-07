@@ -5,7 +5,6 @@ import Technology from "@/components/Technology";
 import Services from "@/components/Services";
 import Evidence from "@/components/Evidence";
 import NoticeSection from "@/components/NoticeSection";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
       <Services />
       <Evidence />
       <NoticeSection />
-      <Contact />
       <Footer />
     </main>
   );

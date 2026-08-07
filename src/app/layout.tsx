@@ -2,21 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BrainEcho | AI Voice Biomarker Healthcare",
+  title: "BrainEcho | AI로 연결하는 건강, 지식, 관계",
   description:
-    "BrainEcho는 AI 기반 음성 바이오마커 분석 기술로 헬스케어의 새로운 기준을 제시합니다. 5분 모바일 음성 스크리닝 플랫폼 GVC를 통해 후두암·파킨슨·우울증을 조기 발견합니다.",
+    "(주)브레인에코는 AI 음성 건강진단 · 뇌파-음성 융합분석 · 시장 예측·분석 · 법률 리스크 대응 · 가족 관계 플랫폼 · 문화 AI 분석 등 6개 도메인에 걸쳐 9개의 AI 플랫폼을 운영하는 한국 최초 멀티도메인 AI 기술 기업입니다.",
   keywords: [
     "BrainEcho", "브레인에코", "AI voice biomarker",
-    "음성 바이오마커", "디지털 헬스케어", "GVC",
-    "Good Voice Care", "음성 스크리닝", "AI 진단",
-    "후두암 조기진단", "파킨슨병 진단",
+    "AI 음성 건강진단", "멀티도메인 AI", "GVC",
+    "Good Voice Care", "Chronos AI", "Legal Intelligence",
+    "SignalForge", "LinkUs", "NeoSAJU",
+    "AI 플랫폼", "디지털 헬스케어", "법률 리스크 대응",
   ],
+  metadataBase: new URL("https://www.brainecho.co.kr"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "BrainEcho | Connecting Neural Intelligence to Digital Reality",
+    title: "BrainEcho | 인공지능으로 연결하는 건강, 지식, 관계",
     description:
-      "AI 음성 바이오마커 기반 디지털 헬스케어 플랫폼 — 5분 만에 목소리로 건강을 진단합니다.",
+      "9개 AI 플랫폼을 운영하는 한국 최초 멀티도메인 AI 기술 기업 — AI 건강진단부터 법률 리스크 대응까지",
     type: "website",
     locale: "ko_KR",
+    url: "https://www.brainecho.co.kr",
   },
 };
 

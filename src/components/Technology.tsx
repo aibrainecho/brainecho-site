@@ -1,77 +1,166 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  AudioWaveform, CircuitBoard, Cpu, Radio,
-  AppWindow, Microscope, Brain, ShieldPlus,
-} from "lucide-react";
+import { Shield, Cpu, Cloud, Lock } from "lucide-react";
 
-type Module = {
-  icon: typeof Brain;
-  step: string;
-  title: string;
-  desc: string;
-  tech: string[];
-};
-
-const modules: Module[] = [
-  {
-    icon: AudioWaveform,
-    step: "01",
-    title: "음성 특징 추출",
-    desc: "30+ 음향 파라미터를 실시간으로 추출하여 임상 수준의 음성 프로파일을 생성합니다.",
-    tech: ["Jitter · Shimmer · HNR", "MFCC 1~40", "F0 · F1~F4 Formant", "스펙트럼 기울기"],
-  },
-  {
-    icon: CircuitBoard,
-    step: "02",
-    title: "잡음 환경 개선 DNN ★",
-    desc: "모바일 주변잡음·코딩잡음·통신잡음 환경을 병원 장비(MDVP) 수준으로 보정하는 독자 기술입니다.",
-    tech: ["Non-linear DNN Mapping", "Domain Gap 해소", "실시간 노이즈 캔슬링", "경쟁사 모방 불가"],
-  },
-  {
-    icon: Brain,
-    step: "03",
-    title: "자동 진단 분류 DNN",
-    desc: "CNN+RNN+Transformer 하이브리드 모델로 4개 질환군을 동시에 분류·진단합니다.",
-    tech: ["후두암 · 성대마비", "파킨슨병 (AUC 0.9125)", "우울증 (71.3% 민감도)", "SHAP XAI 근거 제시"],
-  },
-  {
-    icon: AppWindow,
-    step: "04",
-    title: "모바일 통합 시스템",
-    desc: "iOS/Android 앱 + AWS 클라우드 + 의료기관 대시보드로 이어지는 엔드투엔드 플랫폼입니다.",
-    tech: ["GVC App (5분 스크리닝)", "AWS 글로벌 분산 서버", "REST API B2B 연동", "Edge AI 오프라인 지원"],
-  },
-];
-
-const accuracyData = [
-  { label: "후두 질환", value: 95, color: "bg-brand-500" },
-  { label: "후두암", value: 91, color: "bg-brand-400" },
-  { label: "파킨슨 (AUC)", value: 91.1, color: "bg-accent-500" },
-  { label: "우울증 (민감도)", value: 71.3, color: "bg-accent-400" },
-];
-
-function AccuracyChart() {
+function EcosystemDiagram() {
   return (
-    <div className="space-y-4">
-      {accuracyData.map((d) => (
-        <div key={d.label}>
-          <div className="mb-1 flex justify-between text-sm">
-            <span className="font-medium text-gray-700">{d.label}</span>
-            <span className="font-bold text-brand-600">{d.value}%</span>
-          </div>
-          <div className="h-3 overflow-hidden rounded-full bg-gray-100">
-            <div
-              className={`h-full rounded-full ${d.color} transition-all duration-1000`}
-              style={{ width: `${d.value}%` }}
-            />
-          </div>
-        </div>
+    <svg viewBox="0 0 900 520" className="w-full max-w-4xl mx-auto" role="img" aria-label="BrainEcho AI Ecosystem Architecture">
+      <defs>
+        <linearGradient id="gh" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#0047AB" /><stop offset="100%" stopColor="#2563EB" /></linearGradient>
+        <linearGradient id="gi" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#0891B2" /><stop offset="100%" stopColor="#00BFA5" /></linearGradient>
+        <linearGradient id="gc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#DB2777" /><stop offset="100%" stopColor="#EC4899" /></linearGradient>
+        <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#F59E0B" /><stop offset="100%" stopColor="#D97706" /></linearGradient>
+        <linearGradient id="gcore" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#1E3A8A" /><stop offset="50%" stopColor="#2563EB" /><stop offset="100%" stopColor="#1E3A8A" /></linearGradient>
+        <filter id="sd"><feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.06" /></filter>
+        <filter id="sdt"><feDropShadow dx="0" dy="4" stdDeviation="5" floodOpacity="0.10" /></filter>
+      </defs>
+
+      {/* Background */}
+      <rect x="0" y="0" width="900" height="520" rx="16" fill="#F8FAFC" />
+
+      {/* Title */}
+      <text x="450" y="32" textAnchor="middle" fontSize="16" fill="#1E293B" fontWeight="900">BrainEcho AI Ecosystem — Integrated Multi-Domain Architecture</text>
+
+      {/* ═══ LAYER 0: CORE BAR (drawn first = behind) ═══ */}
+      <g filter="url(#sdt)">
+        <rect x="30" y="52" width="840" height="44" rx="10" fill="url(#gcore)" />
+        <text x="450" y="80" textAnchor="middle" fontSize="15" fill="white" fontWeight="900" letterSpacing="3">BRAINECHO AI CORE — 9 PLATFORMS · 4 DOMAINS · UNIFIED INFRASTRUCTURE</text>
+      </g>
+
+      {/* ═══ CONNECTION LINES (behind nodes, no overlap) ═══ */}
+      {/* Vertical drops from core to each column */}
+      {[155, 380, 608, 833].map((x) => (
+        <line key={`v-${x}`} x1={x} y1="96" x2={x} y2="118" stroke="#94A3B8" strokeWidth="2" />
       ))}
-    </div>
+      {/* Horizontal data flow between columns */}
+      <line x1="250" y1="310" x2="350" y2="310" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="6,3" />
+      <line x1="500" y1="310" x2="600" y2="310" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="6,3" />
+      {/* Bottom integration line */}
+      <line x1="30" y1="440" x2="870" y2="440" stroke="#CBD5E1" strokeWidth="2" />
+
+      {/* ═══ COLUMN 1: Healthcare AI ═══ */}
+      <g filter="url(#sdt)">
+        <rect x="30" y="118" width="250" height="320" rx="14" fill="white" stroke="#E2E8F0" strokeWidth="1" />
+        <rect x="30" y="118" width="250" height="48" rx="14" fill="url(#gh)" />
+        <text x="155" y="148" textAnchor="middle" fontSize="15" fill="white" fontWeight="900">🧬 Healthcare AI</text>
+      </g>
+      {/* Platform cards */}
+      {[
+        ["Good Voice Care", "Voice Screening · 5 Diseases", "#DBEAFE", "#1E40AF"],
+        ["Voice Biomarker", "88-Parameter Analysis", "#EFF6FF", "#3B82F6"],
+        ["EEG Brainwave Fusion", "Voice-EEG Dual Biomarker", "#EFF6FF", "#3B82F6"],
+      ].map(([t, s, bg, fg], i) => (
+        <g key={t} filter="url(#sd)">
+          <rect x="42" y={176 + i * 56} width="226" height="48" rx="8" fill={bg} stroke="#DBEAFE" strokeWidth="1" />
+          <text x="155" y={196 + i * 56} textAnchor="middle" fontSize="13" fill={fg} fontWeight="700">{t}</text>
+          <text x="155" y={214 + i * 56} textAnchor="middle" fontSize="10" fill="#64748B">{s}</text>
+        </g>
+      ))}
+      {/* Stats foot */}
+      <rect x="42" y="346" width="226" height="44" rx="8" fill="#F0F9FF" stroke="#BAE6FD" strokeWidth="1" />
+      <text x="155" y="363" textAnchor="middle" fontSize="11" fill="#0369A1" fontWeight="700">SCI 9+ · Nature · Bridge2AI 12K</text>
+      <text x="155" y="379" textAnchor="middle" fontSize="10" fill="#0284C7">Global TAM $5.4B (2035)</text>
+
+      {/* ═══ COLUMN 2: Intelligence AI ═══ */}
+      <g filter="url(#sdt)">
+        <rect x="300" y="118" width="250" height="320" rx="14" fill="white" stroke="#E2E8F0" strokeWidth="1" />
+        <rect x="300" y="118" width="250" height="48" rx="14" fill="url(#gi)" />
+        <text x="425" y="148" textAnchor="middle" fontSize="15" fill="white" fontWeight="900">🧠 Intelligence AI</text>
+      </g>
+      {[
+        ["Chronos Engine", "Time-Series Inference", "#F0FDFA", "#0F766E"],
+        ["Legal Intelligence", "RAG Legal Analysis", "#F0FDFA", "#0F766E"],
+        ["SignalForge", "Market Signal Platform", "#F0FDFA", "#0F766E"],
+        ["Confluence AI", "Enterprise Knowledge", "#F0FDFA", "#0F766E"],
+      ].map(([t, s, bg, fg], i) => (
+        <g key={t} filter="url(#sd)">
+          <rect x="312" y={176 + i * 48} width="226" height="42" rx="8" fill={bg} stroke="#A7F3D0" strokeWidth="1" />
+          <text x="425" y={194 + i * 48} textAnchor="middle" fontSize="13" fill={fg} fontWeight="700">{t}</text>
+          <text x="425" y={210 + i * 48} textAnchor="middle" fontSize="10" fill="#64748B">{s}</text>
+        </g>
+      ))}
+      <rect x="312" y="346" width="226" height="44" rx="8" fill="#F0FDFA" stroke="#A7F3D0" strokeWidth="1" />
+      <text x="425" y="363" textAnchor="middle" fontSize="11" fill="#0F766E" fontWeight="700">Enterprise AI ↗ CAGR 37%+</text>
+      <text x="425" y="379" textAnchor="middle" fontSize="10" fill="#14B8A6">Domain-Specialized Intelligence</text>
+
+      {/* ═══ COLUMN 3: Culture AI ═══ */}
+      <g filter="url(#sdt)">
+        <rect x="570" y="118" width="170" height="320" rx="14" fill="white" stroke="#E2E8F0" strokeWidth="1" />
+        <rect x="570" y="118" width="170" height="48" rx="14" fill="url(#gc)" />
+        <text x="655" y="148" textAnchor="middle" fontSize="15" fill="white" fontWeight="900">🤝 Culture AI</text>
+      </g>
+      {[
+        ["LinkUs", "Family OS · Kinship", "#FDF2F8", "#9D174D"],
+        ["NeoSAJU", "AI Astrology", "#FDF2F8", "#9D174D"],
+      ].map(([t, s, bg, fg], i) => (
+        <g key={t} filter="url(#sd)">
+          <rect x="582" y={176 + i * 56} width="146" height="48" rx="8" fill={bg} stroke="#FBCFE8" strokeWidth="1" />
+          <text x="655" y={196 + i * 56} textAnchor="middle" fontSize="13" fill={fg} fontWeight="700">{t}</text>
+          <text x="655" y={214 + i * 56} textAnchor="middle" fontSize="10" fill="#64748B">{s}</text>
+        </g>
+      ))}
+      <rect x="582" y="346" width="146" height="44" rx="8" fill="#FDF2F8" stroke="#FBCFE8" strokeWidth="1" />
+      <text x="655" y="363" textAnchor="middle" fontSize="11" fill="#9D174D" fontWeight="700">Korean AI · K-Culture</text>
+      <text x="655" y="379" textAnchor="middle" fontSize="10" fill="#BE185D">Global Cultural AI</text>
+
+      {/* ═══ COLUMN 4: Infrastructure ═══ */}
+      <g filter="url(#sdt)">
+        <rect x="758" y="118" width="112" height="320" rx="14" fill="white" stroke="#E2E8F0" strokeWidth="1" />
+        <rect x="758" y="118" width="112" height="48" rx="14" fill="url(#gs)" />
+        <text x="814" y="140" textAnchor="middle" fontSize="13" fill="white" fontWeight="900">🛡️</text>
+        <text x="814" y="156" textAnchor="middle" fontSize="10" fill="white" fontWeight="700">Infrastructure</text>
+      </g>
+      {[
+        ["LLM Cluster", "10 High-End"],
+        ["Vector+RDB", "Hybrid Store"],
+        ["E2E Crypto", "AES Standard"],
+        ["Cloud Native", "Auto-Recovery"],
+      ].map(([t, s], i) => (
+        <g key={t} filter="url(#sd)">
+          <rect x="764" y={176 + i * 43} width="100" height="38" rx="8" fill="#FFF7ED" stroke="#FDE68A" strokeWidth="1" />
+          <text x="814" y={194 + i * 43} textAnchor="middle" fontSize="11" fill="#92400E" fontWeight="700">{t}</text>
+          <text x="814" y={208 + i * 43} textAnchor="middle" fontSize="9" fill="#B45309">{s}</text>
+        </g>
+      ))}
+      <rect x="764" y="346" width="100" height="44" rx="8" fill="#FFF7ED" stroke="#FDE68A" strokeWidth="1" />
+      <text x="814" y="364" textAnchor="middle" fontSize="10" fill="#92400E" fontWeight="700">ISO 27001</text>
+      <text x="814" y="380" textAnchor="middle" fontSize="9" fill="#B45309">6 Certifications</text>
+
+      {/* ═══ BOTTOM LAYER ═══ */}
+      <rect x="30" y="452" width="840" height="56" rx="10" fill="#F1F5F9" stroke="#CBD5E1" strokeWidth="1" />
+      <text x="450" y="472" textAnchor="middle" fontSize="12" fill="#1E293B" fontWeight="700">Cloudflare WAF + Global CDN · Docker Container Orchestration · Zero-Downtime Auto-Recovery · Multi-Cloud Deployment · Real-Time Data Sync</text>
+      <text x="450" y="494" textAnchor="middle" fontSize="10" fill="#64748B">End-to-End Encryption · ISO 27001 ISMS · SSOT Key Management · Continuous Monitoring & Auditing</text>
+    </svg>
   );
 }
+
+const capabilities = [
+  {
+    icon: Cpu,
+    title: "AI Inference Engine",
+    desc: "고성능 대규모 언어모델 클러스터 기반 10종 모델 운영. 멀티 LLM 지능형 폴백 체계로 99.9% 가용성을 보장하며, 딥러닝 추론 파이프라인과 RAG 지식 검색을 결합하여 도메인별 최적화된 AI 분석을 제공합니다.",
+    items: ["10+ LLM Models", "Smart Fallback", "Deep Learning Pipeline", "RAG Knowledge Retrieval"],
+  },
+  {
+    icon: Cloud,
+    title: "Data Infrastructure",
+    desc: "벡터 데이터베이스와 관계형 데이터베이스를 통합한 하이브리드 저장소 아키텍처. 분산 캐시 레이어로 초저지연 응답을 구현하며, 실시간 증분 데이터 동기화와 객체 스토리지 연동을 제공합니다.",
+    items: ["Vector + RDB Integration", "Distributed Cache", "Object Storage", "Real-time Sync"],
+  },
+  {
+    icon: Shield,
+    title: "Cloud Operations",
+    desc: "컨테이너 기반 마이크로서비스 아키텍처로 9개 플랫폼을 표준화하여 배포합니다. 멀티 클라우드 환경에서 무중단 자동 복구, 모니터링, 장애 격리 체계를 갖추고 있으며 6종 기업 인증을 보유하고 있습니다.",
+    items: ["Container Orchestration", "Auto-Recovery", "Monitoring + Alerts", "6 Certifications"],
+  },
+  {
+    icon: Lock,
+    title: "Security Architecture",
+    desc: "종단간 데이터 암호화, 토큰 기반 접근 제어, SSOT 키 관리 체계 등 ISO 27001 표준을 준수하는 통합 보안 아키텍처를 전 서비스에 적용합니다. Cloudflare WAF + 글로벌 CDN으로 네트워크 수준 보호를 제공합니다.",
+    items: ["End-to-End Encryption", "Token-Based Auth", "SSOT Key Management", "WAF + Global CDN"],
+  },
+];
 
 export default function Technology() {
   const [isVisible, setIsVisible] = useState(false);
@@ -87,86 +176,48 @@ export default function Technology() {
   }, []);
 
   return (
-    <section id="technology" ref={ref} className="relative bg-gradient-to-b from-gray-50 to-white py-24">
+    <section id="technology" ref={ref} className="relative bg-gray-50 py-24">
       <div className="section-container">
-        {/* Header */}
         <div className={`text-center transition-all duration-700 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-          <span className="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-600">Core Technology</span>
+          <span className="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-600">Tech Architecture</span>
           <h2 className="section-title mt-6">
-            <span className="gradient-text">4-Module AI</span> Pipeline
+            <span className="gradient-text">AI Ecosystem</span> Architecture
           </h2>
           <p className="section-subtitle mx-auto">
-            스마트폰 마이크에서 진단 결과까지 — 브레인에코의 독자적인 엔드투엔드 AI 아키텍처.
+            Centralized AI Core orchestrating 9 specialized platforms across 4 satellite domains — single architecture, infinite scalability.
           </p>
         </div>
 
-        {/* Pipeline Flow */}
-        <div className="relative mt-16">
-          {/* Connecting Arrow (visible on lg) */}
-          <div className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-brand-200 via-accent-200 to-brand-200 lg:block" />
-
-          <div className="grid gap-8 lg:grid-cols-4">
-            {modules.map((mod, i) => (
-              <div
-                key={mod.step}
-                className={`relative rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-                }`}
-                style={{ transitionDelay: `${i * 150}ms`, transition: "all 0.6s" }}
-              >
-                {/* Step Number */}
-                <div className="absolute -top-3 left-4 flex h-7 w-7 items-center justify-center rounded-full bg-brand-500 text-xs font-bold text-white shadow-md">
-                  {mod.step}
-                </div>
-
-                <div className="mb-4 mt-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-accent-50 text-brand-600">
-                  <mod.icon size={24} />
-                </div>
-
-                <h3 className="mb-2 text-lg font-bold text-gray-900">
-                  {mod.title}
-                  {mod.step === "02" && <span className="ml-1 text-xs text-lime-600">★ 핵심</span>}
-                </h3>
-                <p className="mb-4 text-sm leading-relaxed text-gray-600">{mod.desc}</p>
-
-                <div className="border-t border-gray-100 pt-3">
-                  <p className="mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Tech Stack</p>
-                  <ul className="space-y-1">
-                    {mod.tech.map((t) => (
-                      <li key={t} className="flex items-center gap-1.5 text-xs text-gray-500">
-                        <span className="h-1.5 w-1.5 rounded-full bg-brand-300" />
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Ecosystem Diagram */}
+        <div className={`mx-auto mt-14 max-w-5xl rounded-2xl bg-white p-6 shadow-sm border border-gray-100 ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`} style={{ transitionDelay: "0.15s", transition: "all 0.7s" }}>
+          <EcosystemDiagram />
         </div>
 
-        {/* AI Accuracy Section */}
-        <div className={`mx-auto mt-20 max-w-5xl rounded-2xl border border-gray-100 bg-white p-8 shadow-sm lg:p-10 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-             style={{ transitionDelay: "0.6s", transition: "all 0.7s" }}>
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div>
-              <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                임상 검증된 AI 성능
-              </h3>
-              <p className="mb-6 text-sm leading-relaxed text-gray-600">
-                SCI 국제 논문 기반 검증. TTA 공인 시험 기준 목표: 자동 검사 성공률 95%, 시스템 반응속도 2.0초 이내.
-                설명 가능 AI(SHAP)로 모든 진단 결과에 임상적 근거를 제시합니다.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {["TTA 인증 목표", "SHAP XAI", "SCI 논문", "FDA 510(k) 준비"].map((tag) => (
-                  <span key={tag} className="rounded-full bg-brand-50 px-3 py-1.5 text-xs font-medium text-brand-700">
-                    {tag}
-                  </span>
+        {/* Capability Cards */}
+        <div className={`mt-12 grid gap-6 md:grid-cols-2 ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`} style={{ transitionDelay: "0.3s", transition: "all 0.7s" }}>
+          {capabilities.map((cap, i) => (
+            <div key={cap.title}
+              className="group rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              style={{ transitionDelay: `${400 + i * 100}ms`, transition: "all 0.6s" }}>
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-500 group-hover:text-white">
+                <cap.icon size={22} />
+              </div>
+              <h3 className="mb-2 text-lg font-bold text-gray-900">{cap.title}</h3>
+              <p className="mb-4 text-sm leading-relaxed text-gray-600">{cap.desc}</p>
+              <div className="grid grid-cols-2 gap-1.5">
+                {cap.items.map((item) => (
+                  <div key={item} className="flex items-center gap-1.5 rounded-lg bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
+                    {item}
+                  </div>
                 ))}
               </div>
             </div>
-            <AccuracyChart />
-          </div>
+          ))}
         </div>
       </div>
     </section>

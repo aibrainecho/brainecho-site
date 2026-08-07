@@ -1,38 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  Building2, Award, Fingerprint, Users,
-  Target, TrendingUp, ShieldCheck, Microscope,
-} from "lucide-react";
+import { Heart, Brain, Users, Award, Building2 } from "lucide-react";
 
-const stats = [
-  { label: "Founded", value: "2016", sub: "(Re-est. 2024)" },
-  { label: "IP Assets", value: "4", sub: "Trademark + Patent" },
-  { label: "R&D Dept", value: "인증", sub: "과학기술정보통신부" },
-  { label: "Partners", value: "35", sub: "글로벌 채널" },
-];
-
-const values = [
+const pillars = [
   {
-    icon: Microscope,
-    title: "10년 도메인 전문성",
-    desc: "2016년부터 AI 음성 바이오마커 연구개발, 중소벤처기업부 R&D 국책 과제 '성공' 판정. 국내 최초 모바일 음성 스크리닝 앱 GVC 개발.",
+    icon: Heart,
+    label: "헬스케어 AI",
+    color: "#0047AB",
+    iconColor: "#0047AB",
+    platforms: [
+      { name: "Good Voice Care (GVC)", desc: "AI 음성 건강진단" },
+      { name: "Voice Biomarker Platform", desc: "88개 파라미터 건강 분석" },
+      { name: "EEG Brainwave Fusion", desc: "음성-뇌파 듀얼 시스템" },
+    ],
+    pitch: "스마트폰 음성 30초로 5개 질환 위험도 스크리닝 + 뇌파 예측. SCI 9편 임상 근거.",
+    market: "글로벌 AI 헬스케어 TAM 2033년 1.6조원 CAGR 21.11%",
   },
   {
-    icon: Target,
-    title: "독자적 핵심 기술",
-    desc: "잡음 환경 개선 DNN — 모바일-임상 Domain Gap 해소하는 독자 알고리즘. 경쟁사 모방 불가한 핵심 진입 장벽 보유.",
+    icon: Brain,
+    label: "인텔리전스 AI",
+    color: "#00BFA5",
+    iconColor: "#00BFA5",
+    platforms: [
+      { name: "Chronos AI Engine", desc: "시계열 추론 엔진" },
+      { name: "SignalForge Engine", desc: "시장 예측·분석" },
+      { name: "Legal Intelligence", desc: "법률 RAG 분석" },
+      { name: "Confluence AI", desc: "기업 지식 엔진" },
+    ],
+    pitch: "시계열 추론·시장 예측·법률 리스크 대응·기업 지식 관리 4개 엔진. B2B SaaS 최적화.",
+    market: "Enterprise AI 시장 CAGR 37%+ (2026~2035 Gartner)",
   },
   {
-    icon: ShieldCheck,
-    title: "임상 검증 완료",
-    desc: "후두 질환 95%, 파킨슨 AUC 0.9125 등 SCI 국제 논문 기반 검증된 AI 성능. 설명 가능 AI(SHAP)로 의료 현장 투명성 확보.",
-  },
-  {
-    icon: Building2,
-    title: "대기업 협력",
-    desc: "삼성전자 URecA 2.0 컨텐츠 개인화 플랫폼 참여, 예송음성센터 MOU(35개국), AWS 전략적 제휴. 검증된 기술력.",
+    icon: Users,
+    label: "관계·문화 AI",
+    color: "#FF6B9D",
+    iconColor: "#FF6B9D",
+    platforms: [
+      { name: "LinkUs — Family OS", desc: "살아있는 가족 운영체제" },
+      { name: "NeoSAJU", desc: "문화 AI 분석" },
+    ],
+    pitch: "한국어 정밀 호칭 엔진 + 전통 명리학 AI 해석. K-Culture 디지털화 선도.",
+    market: "국내 K-AI 플랫폼 시장 고성장 · 한국어 특화 경쟁 우위",
   },
 ];
 
@@ -50,74 +59,105 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={ref} className="relative bg-white py-24">
+    <section id="about" ref={ref} className="relative py-24"
+      style={{ background: "#ffffff" }}>
       <div className="section-container">
         {/* Header */}
         <div className={`text-center transition-all duration-700 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-          <span className="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-600">About BrainEcho</span>
+          <span className="inline-block rounded-full px-4 py-1.5 text-sm font-medium tracking-widest"
+            style={{ background: "rgba(0,71,171,0.08)", color: "#0047AB", border: "1px solid #e2e8f0" }}>
+            Brand Positioning
+          </span>
           <h2 className="section-title mt-6">
-            <span className="gradient-text">AI 음성 바이오마커</span>의 선구자
+            3-Pillar <span className="gradient-text">AI Platform</span> Strategy
           </h2>
           <p className="section-subtitle mx-auto">
-            (주)브레인에코는 2016년부터 축적된 10년 이상의 음성 분석 도메인 전문성을 바탕으로,
-            AI 기반 디지털 헬스케어 소프트웨어를 연구·개발하는 딥테크 스타트업입니다.
+            한국 최초 멀티도메인 AI SaaS 기업 — 6개 도메인에 걸쳐 9개의 독립적 AI 플랫폼을 운영합니다.
           </p>
         </div>
 
-        {/* Company Info Cards */}
-        <div className={`mx-auto mt-12 max-w-4xl rounded-2xl bg-gradient-to-br from-brand-50 to-white p-8 shadow-sm border border-brand-100 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-             style={{ transitionDelay: "0.15s", transition: "all 0.6s" }}>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div>
-              <h3 className="text-lg font-bold text-brand-800">주식회사 브레인에코</h3>
-              <p className="mt-1 text-sm text-gray-500">BrainEcho Co., Ltd.</p>
-              <div className="mt-4 space-y-2 text-sm text-gray-600">
-                <div className="flex items-center gap-2"><Users size={14} className="text-brand-400" /><span>대표이사 김인태</span></div>
-                <div className="flex items-center gap-2"><Building2 size={14} className="text-brand-400" /><span>서울 송파구 송이로 83, 브리즈타워 6F</span></div>
-                <div className="flex items-center gap-2"><Award size={14} className="text-brand-400" /><span>사업자등록 235-88-03066</span></div>
-              </div>
-            </div>
-            <div className="border-l border-brand-100 pl-6">
-              <h3 className="mb-3 text-sm font-bold text-brand-800">보유 인증</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  "벤처기업 인증", "중소기업 확인",
-                  "연구개발전담부서", "창업기업 확인",
-                ].map((cert) => (
-                  <div key={cert} className="flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-xs font-medium text-brand-700 shadow-sm border border-brand-100">
-                    <Fingerprint size={12} className="text-lime-500" />
-                    {cert}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        {/* Brand Positioning Statement */}
+        <div className={`mx-auto mt-12 max-w-4xl rounded-2xl p-8 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+          style={{
+            background: "#ffffff",
+            border: "1px solid #e2e8f0",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+            transition: "all 0.6s",
+            transitionDelay: "0.15s",
+          }}>
+          <p className="text-lg leading-relaxed" style={{ color: "#334155" }}>
+            BrainEcho는{" "}
+            <strong style={{ color: "#0047AB" }}>AI 건강진단·뇌파분석·법률대응·시장예측·지식·관계</strong> 등 6개 도메인에 걸쳐{" "}
+            <strong style={{ color: "#0047AB" }}>9개의 독립적 AI 플랫폼</strong>을 운영하는{" "}
+            <strong style={{ color: "#1e293b" }}>Korea's First Multi-Domain AI SaaS Platform</strong>입니다.
+          </p>
         </div>
 
-        {/* Stats */}
-        <div className={`mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 ${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.3s" }}>
-          {stats.map((s) => (
-            <div key={s.label} className="rounded-2xl border border-gray-100 bg-white p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="text-2xl font-bold text-brand-500 sm:text-3xl">{s.value}</div>
-              <div className="mt-1 text-xs text-gray-400">{s.sub}</div>
-              <div className="mt-1 text-sm font-medium text-gray-500">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Value Cards */}
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {values.map((item, i) => (
-            <div key={item.title}
-              className={`group rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg ${
+        {/* 3-Pillar Cards */}
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {pillars.map((pillar, i) => (
+            <div
+              key={pillar.label}
+              className={`rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
-              style={{ transitionDelay: `${400 + i * 100}ms`, transition: "all 0.6s" }}>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-600 transition-colors group-hover:from-brand-500 group-hover:to-brand-600 group-hover:text-white">
-                <item.icon size={24} />
+              style={{
+                background: "#ffffff",
+                border: `1px solid #e2e8f0`,
+                borderTop: `3px solid ${pillar.color}`,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                transitionDelay: `${200 + i * 100}ms`,
+                transition: "all 0.6s",
+              }}
+            >
+              <div className="mb-4 flex items-center gap-3">
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  style={{ background: `${pillar.color}18`, color: pillar.color }}
+                >
+                  <pillar.icon size={22} />
+                </div>
+                <div>
+                  <div className="text-sm font-bold" style={{ color: pillar.color }}>
+                    {pillar.label}
+                  </div>
+                  <div className="text-xs" style={{ color: "#64748B" }}>
+                    {pillar.platforms.length}개 플랫폼
+                  </div>
+                </div>
               </div>
-              <h3 className="mb-3 text-lg font-bold text-gray-900">{item.title}</h3>
-              <p className="text-sm leading-relaxed text-gray-600">{item.desc}</p>
+
+              {/* Platform list */}
+              <div className="mb-4 flex flex-wrap gap-2">
+                {pillar.platforms.map((p) => (
+                  <span
+                    key={p.name}
+                    className="rounded px-2.5 py-1 text-xs"
+                    style={{
+                      background: `${pillar.color}0D`,
+                      border: `1px solid ${pillar.color}33`,
+                      color: "#475569",
+                    }}
+                  >
+                    {p.name.split(" ")[0]} {p.name.split(" ")[1] || ""}
+                  </span>
+                ))}
+              </div>
+
+              {/* Pitch */}
+              <p className="mb-3 text-sm leading-relaxed"
+                style={{
+                  color: "#64748B",
+                  borderBottom: "1px solid #e2e8f0",
+                  paddingBottom: "0.75rem",
+                }}>
+                {pillar.pitch}
+              </p>
+
+              {/* Market */}
+              <p className="text-xs leading-relaxed" style={{ color: pillar.color }}>
+                {pillar.market}
+              </p>
             </div>
           ))}
         </div>

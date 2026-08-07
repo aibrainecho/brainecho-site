@@ -2,86 +2,42 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  TrendingUp, Award, BookOpen, FlaskConical,
-  Users, ChevronRight, BarChart3, ExternalLink,
+  Award, BookOpen, FlaskConical, TrendingUp,
+  ScrollText, Stamp, Shield,
 } from "lucide-react";
 
-const metrics = [
-  { label: "AI 음성 헬스 시장 (2035)", value: "$116.9B", sub: "TAM", color: "text-brand-500" },
-  { label: "국내 디지털 헬스", value: "$2.4B", sub: "SAM", color: "text-accent-500" },
-  { label: "연평균 성장률", value: "37.85%", sub: "CAGR", color: "text-lime-500" },
-  { label: "목표 매출 (2027)", value: "₩15억", sub: "SOM", color: "text-brand-400" },
+const sciFoundation = [
+  ["BMJ Evidence-Based", "2025", "Speech Biomarkers Systematic Review", "6 DB Meta-Analysis — AI Voice Clinical Validation"],
+  ["JMIR", "2025", "Clinical Decision Support · Speech Signal", "Deep Learning + ML Predictive Models"],
+  ["Nature Sci. Rep.", "2024-25", "Parkinson's AUC 0.9125 · Laryngeal 85~97%", "SHAP XAI · Multi-Center Validation"],
+  ["MDPI Bioengineering", "2025", "69 Studies (2020-2025) Meta-Review", "Voice AI Field Standard — Comprehensive Review"],
+  ["Bridge2AI (NIH)", "2025-", "12,523 Voice Cases · Multi-Center", "World's Largest Voice Health Database"],
+  ["PubMed Central", "2024", "ML/DL 16 Diseases (2015-2024)", "200+ Studies Foundation — AI Clinical Revolution"],
 ];
 
-const advantages = [
-  {
-    icon: BarChart3,
-    title: "비용 1/100",
-    desc: "전문 장비(MDVP) 대비 1/100 비용. 스마트폰만으로 병원 수준 스크리닝.",
-  },
-  {
-    icon: Users,
-    title: "커버 질환 4배",
-    desc: "글로벌 경쟁사 대비 4배 많은 질환 동시 스크리닝. 단일 플랫폼 멀티 진단.",
-  },
-  {
-    icon: FlaskConical,
-    title: "10년+ 임상 데이터",
-    desc: "2016년부터 축적된 도메인 전문성. SCI 논문 기반 검증된 AI 모델.",
-  },
-  {
-    icon: Award,
-    title: "35개국 글로벌 채널",
-    desc: "예송음성센터 MOU 기반 즉시 활용 가능한 글로벌 인프라.",
-  },
+const kpis = [
+  { value: "200+", label: "Global Studies", sub: "BMJ · Nature · JMIR" },
+  { value: "$5.4B", label: "Global TAM 2035", sub: "Voice Biomarker Market" },
+  { value: "3+4", label: "IP Portfolio", sub: "Patents + Trademarks" },
+  { value: "6", label: "Certifications", sub: "Venture · Lab · ISO" },
 ];
 
-const milestones = [
-  { year: "2016~2019", event: "음성 AI 스크리닝 원천 기술 개발 / GVC V1.0 최초 개발 / AWS 전략적 제휴" },
-  { year: "2018", event: "음성분석 상표권 등록 + 특허 등록 (No.10-1908***) — 원천 기술 IP 확보" },
-  { year: "2024.07", event: "법인 재설립 — e-GVC / e-ScMS 2세대 DNN 고도화 착수" },
-  { year: "2025.02", event: "연구개발전담부서 인정 / 예송음성센터 MOU (35개국) / 그립 AIoT 협정" },
-  { year: "2025.06", event: "삼성전자 URecA 2.0 컨텐츠 개인화 플랫폼 참여 (→2026.06)" },
-  { year: "2026.01", event: "소프트웨어 응용솔루션 개발업 상표권 등록 (제42류)" },
+const ipList = [
+  { type: "특허출원", no: "No.10-2026-0085", title: "생체 신호 분석 기반 개인화 폐루프 뇌파 동조 시스템", yr: "2026.05", color: "#0047AB" },
+  { type: "특허등록", no: "No.10-2298", title: "스마트폰을 이용한 목소리 질환 조기진단 시스템 및 방법", yr: "2026.05", color: "#0047AB" },
+  { type: "특허등록", no: "No.10-1908", title: "머신러닝을 통해 환경변수 영향을 개선한 음성 질환 진단 시스템", yr: "2026.05", color: "#0047AB" },
+  { type: "상표등록", no: "제40-2490호", title: "AI 플랫폼 사업 Class 42 소프트웨어 솔루션", yr: "2026.04", color: "#0047AB" },
+  { type: "상표등록", no: "제40-2166호", title: "AI 플랫폼 사업 및 브랜드 지식재산권(IP)", yr: "2026.04", color: "#0047AB" },
 ];
 
-function MarketChart() {
-  return (
-    <svg viewBox="0 0 400 220" className="w-full max-w-md mx-auto">
-      {/* Grid */}
-      {[0, 1, 2, 3].map((i) => (
-        <line key={i} x1="40" y1={50 + i * 45} x2="380" y2={50 + i * 45} stroke="#e5e7eb" strokeWidth="1" />
-      ))}
-      {/* Growth Line */}
-      <defs>
-        <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0047AB" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#0047AB" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path d="M 60 180 L 140 150 L 220 120 L 300 70 L 360 30"
-        fill="none" stroke="#0047AB" strokeWidth="3" strokeLinecap="round" />
-      <path d="M 60 180 L 140 150 L 220 120 L 300 70 L 360 30 L 360 180 Z"
-        fill="url(#chart-fill)" />
-      {/* Data Points */}
-      {[
-        { x: 60, y: 180, label: "'16", v: "" },
-        { x: 140, y: 150, label: "'20", v: "" },
-        { x: 220, y: 120, label: "'24", v: "" },
-        { x: 300, y: 70, label: "'28", v: "₩60억" },
-        { x: 360, y: 30, label: "'30", v: "₩1,000억" },
-      ].map((pt) => (
-        <g key={pt.label}>
-          <circle cx={pt.x} cy={pt.y} r="5" fill="#0047AB" className="hover:r-3 transition-all" />
-          {pt.v && <text x={pt.x} y={pt.y - 12} textAnchor="middle" className="text-xs font-bold" fill="#0047AB">{pt.v}</text>}
-          <text x={pt.x} y={195} textAnchor="middle" className="text-xs" fill="#9ca3af">{pt.label}</text>
-        </g>
-      ))}
-      {/* Y-axis label */}
-      <text x="12" y="30" textAnchor="middle" className="text-[10px]" fill="#9ca3af" transform="rotate(-90, 12, 110)" dx="-80">Revenue</text>
-    </svg>
-  );
-}
+const certs = [
+  "벤처기업 인증 (혁신성장유형 · 2026.03)",
+  "기업부설연구소 (연구개발전담부서 · 2025.02)",
+  "기술혁신형 중소기업",
+  "중소기업 확인",
+  "창업기업 확인",
+  "성실경영자 확인 (중소벤처기업부)",
+];
 
 export default function Evidence() {
   const [isVisible, setIsVisible] = useState(false);
@@ -97,81 +53,147 @@ export default function Evidence() {
   }, []);
 
   return (
-    <section id="evidence" ref={ref} className="relative bg-gradient-to-b from-gray-50 to-white py-24">
+    <section id="evidence" ref={ref} className="relative py-24"
+      style={{ background: "#fafafa" }}>
       <div className="section-container">
         {/* Header */}
         <div className={`text-center transition-all duration-700 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-          <span className="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-600">Clinical & Market</span>
+          <span className="inline-block rounded-full px-4 py-1.5 text-sm font-medium tracking-widest"
+            style={{ background: "rgba(0,71,171,0.08)", color: "#0047AB", border: "1px solid #e2e8f0" }}>
+            IP & Clinical Evidence
+          </span>
           <h2 className="section-title mt-6">
-            검증된 <span className="gradient-text">임상 근거</span>와 시장 기회
+            <span className="gradient-text">Research Foundation</span> & IP Portfolio
           </h2>
           <p className="section-subtitle mx-auto">
-            10년 연구개발 + 대기업 협력 + 35개국 글로벌 채널 — 브레인에코만의 경쟁력.
+            200+ Global Studies · 3 Patents · 4 Trademarks · 6 Certifications — scientific credibility and proprietary technology.
           </p>
         </div>
 
-        {/* Market Metrics */}
-        <div className={`mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 ${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.2s" }}>
-          {metrics.map((m) => (
-            <div key={m.label} className="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm">
-              <div className={`text-2xl font-bold sm:text-3xl ${m.color}`}>{m.value}</div>
-              <div className="mt-1 text-xs text-gray-400">{m.sub}</div>
-              <div className="mt-1 text-sm font-medium text-gray-500">{m.label}</div>
+        {/* KPI Stats */}
+        <div className={`mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4 ${isVisible ? "animate-fade-in" : "opacity-0"}`}
+          style={{ animationDelay: "0.2s" }}>
+          {kpis.map((k) => (
+            <div key={k.label} className="rounded-2xl p-5 text-center"
+              style={{
+                background: "#ffffff",
+                border: "1px solid #e2e8f0",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              }}>
+              <div className="text-2xl font-black sm:text-3xl" style={{ color: "#0047AB" }}>
+                {k.value}
+              </div>
+              <div className="mt-1 text-xs" style={{ color: "#64748B" }}>{k.sub}</div>
+              <div className="mt-0.5 text-sm font-medium" style={{ color: "#334155" }}>{k.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Growth Chart + Advantages */}
-        <div className="mx-auto mt-16 grid max-w-5xl items-center gap-10 lg:grid-cols-2">
-          {/* Chart */}
-          <div className={`rounded-2xl border border-gray-100 bg-white p-8 shadow-sm ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-               style={{ transitionDelay: "0.3s", transition: "all 0.7s" }}>
-            <h3 className="mb-1 text-lg font-bold text-gray-900">2030 목표: 매출 ₩1,000억</h3>
-            <p className="mb-6 text-sm text-gray-400">Global AI Voice Healthcare Top-5 플랫폼</p>
-            <MarketChart />
+        {/* IP + Certs grid */}
+        <div className={`mt-12 grid gap-6 lg:grid-cols-2 ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`} style={{ transitionDelay: "0.25s", transition: "all 0.6s" }}>
+          {/* IP Portfolio */}
+          <div>
+            <div className="mb-4 text-xs font-bold tracking-widest" style={{ color: "#0047AB" }}>
+              // 특허·상표·IP 현황
+            </div>
+            <div className="space-y-3">
+              {ipList.map((ip) => (
+                <div key={ip.no} className="rounded-xl p-4"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                    borderLeft: `3px solid ${ip.color}`,
+                  }}>
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="rounded px-2 py-0.5 text-[10px] font-bold"
+                      style={{
+                        background: `${ip.color}0D`,
+                        border: `1px solid ${ip.color}33`,
+                        color: ip.color,
+                      }}>
+                      {ip.type}
+                    </span>
+                    <span className="text-[11px]" style={{ color: "#94A3B8" }}>{ip.yr}</span>
+                  </div>
+                  <div className="text-sm font-bold mb-1" style={{ color: "#1e293b" }}>{ip.no}</div>
+                  <div className="text-xs leading-relaxed" style={{ color: "#64748B" }}>{ip.title}</div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Competitive Advantages */}
-          <div className={`space-y-4 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-               style={{ transitionDelay: "0.4s", transition: "all 0.7s" }}>
-            {advantages.map((a) => (
-              <div key={a.title} className="flex items-start gap-4 rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                  <a.icon size={20} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-bold text-gray-900">{a.title}</h4>
-                    <ChevronRight size={12} className="text-lime-500" />
-                  </div>
-                  <p className="mt-0.5 text-xs text-gray-500">{a.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Timeline */}
-        <div className={`mx-auto mt-16 max-w-4xl ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-             style={{ transitionDelay: "0.5s", transition: "all 0.7s" }}>
-          <h3 className="mb-8 text-center text-2xl font-bold text-gray-900">
-            핵심 <span className="gradient-text">마일스톤</span>
-          </h3>
-          <div className="relative">
-            <div className="absolute left-6 top-0 h-full w-0.5 bg-gradient-to-b from-brand-300 via-accent-300 to-brand-300" />
-            <div className="space-y-6">
-              {milestones.map((m, i) => (
-                <div key={m.year} className="relative flex items-start gap-6 pl-0">
-                  <div className="z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-md border-2 border-brand-200">
-                    <span className="text-[10px] font-bold leading-tight text-brand-600 text-center">{m.year.split("~")[0]}<br />{m.year.includes("~") ? "~" + m.year.split("~")[1] : ""}</span>
-                  </div>
-                  <div className="flex-1 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-                    <p className="text-sm leading-relaxed text-gray-700">{m.event}</p>
+          {/* Certifications */}
+          <div>
+            <div className="mb-4 text-xs font-bold tracking-widest" style={{ color: "#0047AB" }}>
+              // 기업 현황
+            </div>
+            <div className="space-y-3">
+              {certs.map((cert) => (
+                <div key={cert} className="rounded-xl p-4 flex items-start gap-3"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                  }}>
+                  <Shield size={16} className="mt-0.5 shrink-0" style={{ color: "#0047AB" }} />
+                  <div>
+                    <div className="text-sm font-bold" style={{ color: "#334155" }}>✓ {cert}</div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+
+        {/* SCI Papers Table */}
+        <div className={`mt-12 rounded-2xl p-6 overflow-x-auto ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+          style={{
+            background: "#ffffff",
+            border: "1px solid #e2e8f0",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+            transitionDelay: "0.35s",
+            transition: "all 0.6s",
+          }}>
+          <div className="mb-4 text-xs font-bold tracking-widest" style={{ color: "#0047AB" }}>
+            // Research Foundation — 200+ global studies validate voice AI biomarker science
+          </div>
+          <table className="w-full text-xs" style={{ borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                {["Journal / Source", "Year", "Key Findings", "Significance"].map((h) => (
+                  <th key={h} className="px-3 py-2.5 text-left font-bold whitespace-nowrap"
+                    style={{
+                      color: "#64748B",
+                      borderBottom: "1px solid #e2e8f0",
+                    }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {sciFoundation.map((row, i) => (
+                <tr key={row[0] + row[1]}
+                  style={{ background: i % 2 === 0 ? "transparent" : "rgba(0,71,171,0.04)" }}>
+                  {row.map((cell, j) => (
+                    <td key={j} className="px-3 py-2.5"
+                      style={{
+                        color: j === 0 ? "#0047AB" : "#64748B",
+                        borderBottom: "1px solid #e2e8f0",
+                        fontWeight: j === 0 ? 700 : 400,
+                      }}>
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

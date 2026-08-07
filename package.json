@@ -1,16 +1,20 @@
 {
   "name": "brainecho-site",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "cp data/notices.json out/notices.json",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "npx wrangler pages deploy out --project-name brainecho-website",
+    "deploy:full": "python3 scripts/sync_notices.py && next build && npx wrangler pages deploy out --project-name brainecho-website",
+    "sync:notices": "python3 scripts/sync_notices.py",
+    "sync:deploy": "python3 scripts/sync_notices.py --deploy"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.11",
-    "bcryptjs": "^3.0.3",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "react": "19.2.4",
