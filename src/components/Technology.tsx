@@ -25,7 +25,7 @@ function EcosystemDiagram() {
       {/* ═══ LAYER 0: CORE BAR (drawn first = behind) ═══ */}
       <g filter="url(#sdt)">
         <rect x="30" y="52" width="840" height="44" rx="10" fill="url(#gcore)" />
-        <text x="450" y="80" textAnchor="middle" fontSize="15" fill="white" fontWeight="900" letterSpacing="3">BRAINECHO AI CORE — 9 PLATFORMS · 4 DOMAINS · UNIFIED INFRASTRUCTURE</text>
+        <text x="450" y="80" textAnchor="middle" fontSize="15" fill="white" fontWeight="900" letterSpacing="3">BRAINECHO AI CORE — 14+ SYSTEMS · 4 BUSINESS AREAS · UNIFIED INFRASTRUCTURE</text>
       </g>
 
       {/* ═══ CONNECTION LINES (behind nodes, no overlap) ═══ */}
@@ -184,7 +184,7 @@ export default function Technology() {
             <span className="gradient-text">AI Ecosystem</span> Architecture
           </h2>
           <p className="section-subtitle mx-auto">
-            Centralized AI Core orchestrating 9 specialized platforms across 4 satellite domains — single architecture, infinite scalability.
+            Centralized AI Core orchestrating 14+ specialized systems across 4 business areas — single architecture, infinite scalability.
           </p>
         </div>
 

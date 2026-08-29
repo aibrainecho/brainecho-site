@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Heart, Brain, Users } from "lucide-react";
+import { ChevronDown, HeartPulse, BrainCircuit, FlaskConical, Landmark } from "lucide-react";
 
 const pillars = [
-  { icon: Heart, label: "헬스케어 AI", color: "#0047AB", count: 3 },
-  { icon: Brain, label: "인텔리전스 AI", color: "#00BFA5", count: 4 },
-  { icon: Users, label: "관계·문화 AI", color: "#FF6B9D", count: 2 },
+  { icon: HeartPulse, label: "AX · Healthcare AI", color: "#0047AB", count: 3 },
+  { icon: BrainCircuit, label: "DX · Intelligence AI", color: "#00BFA5", count: 4 },
+  { icon: FlaskConical, label: "R&D · Domain AI", color: "#7C3AED", count: 4 },
+  { icon: Landmark, label: "CONSULTING · Public Policy", color: "#D97706", count: 3 },
 ];
 
 const stats = [
-  { value: "9", label: "AI 플랫폼·엔진", color: "#0047AB" },
+  { value: "14+", label: "AI 플랫폼·시스템", color: "#0047AB" },
   { value: "200+", label: "Global Studies", color: "#0047AB" },
   { value: "7", label: "IP (특허·상표)", color: "#0047AB" },
   { value: "35", label: "MOU 연계 35개국", color: "#0047AB" },
@@ -96,11 +97,13 @@ export default function Hero() {
 
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed sm:text-lg"
             style={{ color: "#64748B" }}>
-            AI 음성 건강진단 · 뇌파-음성 융합분석 · 시장 예측·분석
+            AX · Healthcare AI — 음성 바이오마커 · 뇌파 융합
             <br />
-            법률 리스크 대응 · 가족 관계 플랫폼 · 문화 AI 분석
+            DX · Intelligence AI — 하이브리드 RAG · 시계열 분석
             <br />
-            <span style={{ color: "#475569" }}>9개 AI 플랫폼을 운영하는 멀티도메인 AI 기술 기업</span>
+            R&D · 도메인 범용 AI 연구 · CONSULTING · 공공·정책
+            <br />
+            <span style={{ color: "#475569" }}>4개 사업분야, 14+ AI 플랫폼·시스템을 운영하는 멀티도메인 AI 기술 기업</span>
           </p>
 
           {/* Wave Animation */}

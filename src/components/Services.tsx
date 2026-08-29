@@ -1,76 +1,86 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mic, Clock, Scale, TrendingUp } from "lucide-react";
+import { HeartPulse, BrainCircuit, FlaskConical, Landmark } from "lucide-react";
 
-const platforms = [
+const businessAreas = [
   {
-    icon: Mic,
-    pillar: "헬스케어 AI",
-    pillarColor: "#0047AB",
-    name: "Good Voice Care (GVC)",
-    en: "AI Voice Biomarker Healthcare Platform",
-    desc: "스마트폰 10초 발성 → 30+ 음향 파라미터 분석 → 후두암·파킨슨·우울·인지장애 5개 분야 위험도를 5분 내 스크리닝",
-    features: [
-      "후두암 85~97% (Nature 2024)",
-      "파킨슨병 AUC 0.9125 (Nature 2025)",
-      "우울증 민감도 71.3% (Ann.Fam.Med.)",
-      "잡음 보정 DNN (MDVP 수준)",
-      "Edge AI 오프라인 지원",
-      "iOS/Android + AWS REST API",
+    no: "01",
+    code: "AX",
+    icon: HeartPulse,
+    title: "Healthcare AI",
+    color: "#0047AB",
+    points: [
+      "음향학적 특징 기반 질환 위험도 스크리닝 엔진",
+      "음성–뇌파 이중 바이오마커 융합 분석",
     ],
+    tags: ["Voice Biomarker", "EEG Fusion", "Edge AI"],
+    platforms: [
+      { name: "Good Voice Care (GVC)", desc: "스마트폰 10초 발성 → 5개 질환 위험도 스크리닝" },
+      { name: "Voice Biomarker Platform", desc: "88개 음향 파라미터 건강 분석" },
+      { name: "EEG Brainwave Fusion", desc: "음성→뇌파 예측 듀얼 바이오마커" },
+    ],
+    market: "글로벌 음성 바이오마커 시장 $3.84B(2026) → $7.77B(2031), CAGR 15.15% (Mordor Intelligence)",
     status: "GVC App V3.0 — 2026 출시 예정",
   },
   {
-    icon: Clock,
-    pillar: "인텔리전스 AI",
-    pillarColor: "#00BFA5",
-    name: "Chronos AI Engine",
-    en: "Time-Series Data Inference Platform",
-    desc: "다중 소스 시계열 데이터 수집 → 패턴 분석·변곡점 탐지 → 관계형 네트워크 그래프 모델링 → What-if 시뮬레이션 및 미래 시나리오 예측",
-    features: [
-      "시계열 특징 추출",
-      "변곡점 자동 탐지",
-      "세대 간 패턴 분석",
-      "What-if 시나리오 시뮬레이션",
-      "네트워크 관계 모델링",
-      "REST API 플랫폼",
+    no: "02",
+    code: "DX",
+    icon: BrainCircuit,
+    title: "Intelligence AI",
+    color: "#00BFA5",
+    points: [
+      "하이브리드 검색(RAG) 기반 분석 파이프라인 설계",
+      "법률·시장·지식 도메인 SaaS 운영 및 API 제품화",
     ],
-    status: "운영 중",
+    tags: ["Hybrid RAG", "Time-Series", "Vector DB"],
+    platforms: [
+      { name: "Chronos AI Engine", desc: "시계열 추론 · What-if 시뮬레이션" },
+      { name: "Legal Intelligence Engine", desc: "법령 5,584건 · 판례 15,928건 하이브리드 RAG" },
+      { name: "SignalForge Engine", desc: "실시간 시장 신호 분석" },
+      { name: "Confluence AI", desc: "기업 지식 RAG 엔진" },
+    ],
+    market: "Enterprise AI 시장 CAGR 37%+ (2026~2035, Gartner) — B2B SaaS · API 제품화 확대",
+    status: "법률·시장·지식 도메인 SaaS — 운영 중",
   },
   {
-    icon: Scale,
-    pillar: "인텔리전스 AI",
-    pillarColor: "#00BFA5",
-    name: "Legal Intelligence Engine",
-    en: "Legal Information Analysis Platform",
-    desc: "LLM + Hybrid Retrieval(RAG) 기반 법률 질의응답 — 법제처 법령 5,584건·대법원 판례 15,928건 연동, BQAE 자동 품질 검증",
-    features: [
-      "법령 5,584건 (법제처 LSO/DRF API)",
-      "판례 15,928건 (대법원 판례 API)",
-      "PostgreSQL 18.3 + pgvector 0.8.1 (HNSW)",
-      "Hybrid Retrieval (키워드+벡터 유사도)",
-      "BQAE 품질 자동 검증",
-      "법률 리포트 자동 생성",
+    no: "03",
+    code: "R&D",
+    icon: FlaskConical,
+    title: "도메인 범용 AI 추론 연구",
+    color: "#7C3AED",
+    points: [
+      "이종 도메인 패턴학습 및 전이 가능 표현 추출",
+      "금융·회계·인사·공공·품질 분석모델 연구개발",
     ],
-    status: "개발 완료 · 운영 중",
+    tags: ["Representation Learning", "Anomaly Detection"],
+    platforms: [
+      { name: "BAOS (회계·경영)", desc: "중소기업 AI 경영 OS — 분석모델" },
+      { name: "BHCM (인사)", desc: "법령 파라미터 · 급여·채용 분석" },
+      { name: "BSAP (금융)", desc: "시계열 신호 엔진 연구" },
+      { name: "Project Factory", desc: "19 에이전트 SDLC 연구 파이프라인" },
+    ],
+    market: "도메인 특화 분석모델 — 19 에이전트 SDLC 파이프라인 기반 연구개발 체계 운영",
+    status: "연구개발 진행 중",
   },
   {
-    icon: TrendingUp,
-    pillar: "인텔리전스 AI",
-    pillarColor: "#00BFA5",
-    name: "SignalForge Engine",
-    en: "Market Signal Analysis Platform",
-    desc: "멀티 소스 실시간 시장 데이터 수집 → AI 분류·트렌드·이상치 탐지 → 사용자 맞춤형 인사이트 알림·대시보드",
-    features: [
-      "실시간 시장 신호 탐지",
-      "트렌드 이상치 분류",
-      "AI 맞춤 알림",
-      "투자 인사이트 큐레이션",
-      "KIS API 증권 연동",
-      "대시보드 + 리포트 생성",
+    no: "04",
+    code: "CONSULTING",
+    icon: Landmark,
+    title: "공공 · 정책",
+    color: "#D97706",
+    points: [
+      "공공시장(B2G) 진입 전략 · 정책 자문",
+      "재정투자 타당성 · 지방재정 투자심사",
     ],
-    status: "운영 중",
+    tags: ["Public Policy", "B2G", "Governance"],
+    platforms: [
+      { name: "Gov Project Platform", desc: "정부과제 수집 · AI 분석 · 맞춤 추천" },
+      { name: "B2G 진입 전략", desc: "공공시장 진출 컨설팅" },
+      { name: "재정 타당성 분석", desc: "투자심사 · 예산 편성 지원" },
+    ],
+    market: "공공 AI 시장 $19.7B(2025) → $115.3B(2035), CAGR 약 19% (Global Market Insights) · 국내 공공 AI 용역 연 2.8조원(2024, SPRi)",
+    status: "정부과제 플랫폼 — 운영 중",
   },
 ];
 
@@ -95,21 +105,21 @@ export default function Services() {
         <div className={`text-center transition-all duration-700 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
           <span className="inline-block rounded-full px-4 py-1.5 text-sm font-medium tracking-widest"
             style={{ background: "rgba(0,71,171,0.08)", color: "#0047AB", border: "1px solid #e2e8f0" }}>
-            Platform Portfolio
+            Business Areas
           </span>
           <h2 className="section-title mt-6">
-            <span className="gradient-text">Core AI</span> Platforms
+            <span className="gradient-text">사업분야</span> — 4 Business Areas
           </h2>
           <p className="section-subtitle mx-auto">
-            Healthcare AI에서 Intelligence AI까지 — 각 도메인에 특화된 AI 플랫폼이 통합 인프라 위에서 운영됩니다.
+            AX(Healthcare AI) · DX(Intelligence AI) · R&D(도메인 범용 AI 연구) · CONSULTING(공공·정책) — 각 도메인에 특화된 AI 기술사업을 운영합니다.
           </p>
         </div>
 
-        {/* Platform Cards */}
+        {/* Business Area Cards */}
         <div className="mt-16 grid gap-6 md:grid-cols-2">
-          {platforms.map((p, i) => (
+          {businessAreas.map((area, i) => (
             <div
-              key={p.name}
+              key={area.no}
               className={`rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
               }`}
@@ -117,62 +127,81 @@ export default function Services() {
                 background: "#ffffff",
                 border: "1px solid #e2e8f0",
                 boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-                borderLeft: `4px solid ${p.pillarColor}`,
+                borderLeft: `4px solid ${area.color}`,
                 transitionDelay: `${i * 120}ms`,
                 transition: "all 0.6s",
               }}
             >
               {/* Header */}
               <div className="mb-5 flex items-start justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: `${p.pillarColor}18`, color: p.pillarColor }}>
-                      <p.icon size={20} />
+                <div className="flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl text-lg font-black"
+                    style={{ background: `${area.color}18`, color: area.color }}>
+                    {area.no}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-bold" style={{ color: "#1e293b" }}>{area.title}</h3>
+                      <span className="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
+                        style={{ background: `${area.color}18`, color: area.color, border: `1px solid ${area.color}33` }}>
+                        {area.code}
+                      </span>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold" style={{ color: "#1e293b" }}>{p.name}</h3>
-                      <p className="text-xs" style={{ color: "#64748B" }}>{p.en}</p>
+                    <div className="flex items-center gap-1.5 mt-1 text-xs" style={{ color: "#64748B" }}>
+                      <area.icon size={13} style={{ color: area.color }} />
+                      {area.tags.join(" · ")}
                     </div>
                   </div>
                 </div>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-medium flex-shrink-0"
-                  style={{ background: `${p.pillarColor}18`, color: p.pillarColor, border: `1px solid ${p.pillarColor}33` }}
-                >
-                  {p.pillar}
-                </span>
               </div>
 
-              {/* Description */}
-              <p className="mb-5 text-sm leading-relaxed"
-                style={{
-                  color: "#475569",
-                  borderTop: "1px solid #e2e8f0",
-                  borderBottom: "1px solid #e2e8f0",
-                  padding: "14px 0",
-                }}>
-                {p.desc}
-              </p>
-
-              {/* Features */}
-              <div className="mb-4 grid grid-cols-2 gap-1.5">
-                {p.features.map((f) => (
-                  <div key={f} className="flex items-start gap-1.5 text-xs" style={{ color: "#64748B" }}>
-                    <span className="mt-[5px] h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: p.pillarColor }} />
-                    {f}
+              {/* Points */}
+              <div className="mb-5 space-y-2"
+                style={{ borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0", padding: "14px 0" }}>
+                {area.points.map((p) => (
+                  <div key={p} className="flex items-start gap-2 text-sm" style={{ color: "#475569" }}>
+                    <span className="mt-[6px] h-[6px] w-[6px] shrink-0 rounded-full" style={{ background: area.color }} />
+                    {p}
                   </div>
                 ))}
               </div>
 
-              {/* Status */}
-              <div className="rounded-xl px-4 py-2.5 text-xs font-medium"
+              {/* Platforms */}
+              <div className="mb-4">
+                <div className="mb-2 text-[11px] font-bold tracking-widest" style={{ color: area.color }}>
+                  // 관련 기술 · 시스템
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {area.platforms.map((pl) => (
+                    <span key={pl.name} title={pl.desc}
+                      className="rounded-lg px-2.5 py-1.5 text-xs"
+                      style={{
+                        background: `${area.color}0D`,
+                        border: `1px solid ${area.color}33`,
+                        color: "#475569",
+                      }}>
+                      {pl.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Market + Status */}
+              <div className="rounded-xl px-4 py-3 text-xs leading-relaxed"
                 style={{
-                  background: `${p.pillarColor}14`,
-                  border: `1px solid ${p.pillarColor}33`,
-                  color: p.pillarColor,
+                  background: `${area.color}0F`,
+                  border: `1px solid ${area.color}2E`,
+                  color: "#64748B",
                 }}>
-                📌 {p.status}
+                <div className="font-semibold" style={{ color: area.color }}>📈 {area.market}</div>
+              </div>
+              <div className="mt-3 rounded-xl px-4 py-2.5 text-xs font-medium"
+                style={{
+                  background: `${area.color}14`,
+                  border: `1px solid ${area.color}33`,
+                  color: area.color,
+                }}>
+                📌 {area.status}
               </div>
             </div>
           ))}

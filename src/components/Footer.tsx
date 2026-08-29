@@ -8,7 +8,7 @@ export default function Footer() {
               <img src="/brand-logo.png" alt="BrainEcho" className="h-8 w-auto" />
             </div>
             <p className="mt-4 max-w-md text-sm leading-relaxed" style={{ color: "#64748B" }}>
-              AI 음성 건강진단 · 뇌파-음성 융합분석 · 시장 예측·분석 · 법률 리스크 대응 · 가족 관계 플랫폼 · 문화 AI 분석 — 9개 AI 플랫폼을 운영하는 한국 최초 멀티도메인 AI 기술 기업.
+              AX(Healthcare AI) · DX(Intelligence AI) · R&D(도메인 범용 AI 연구) · CONSULTING(공공·정책) — 4개 사업분야, 14+ AI 플랫폼·시스템을 운영하는 한국 최초 멀티도메인 AI 기술 기업.
             </p>
             <p className="mt-2 text-xs" style={{ color: "#94A3B8" }}>
               &quot;Connecting Neural Intelligence to Digital Reality&quot;
@@ -18,9 +18,9 @@ export default function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold" style={{ color: "#1e293b" }}>Quick Links</h4>
             <ul className="space-y-2">
-              {["Home", "About", "Technology", "Products", "Evidence", "Notice", "Contact"].map((item) => (
+              {["Home", "About", "History", "Technology", "Business", "Evidence", "Notice", "Contact"].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase() === "home" ? "hero" : item.toLowerCase() === "products" ? "services" : item.toLowerCase()}`}
+                  <a href={`#${item.toLowerCase() === "home" ? "hero" : item.toLowerCase() === "products" ? "services" : item.toLowerCase() === "business" ? "services" : item.toLowerCase()}`}
                     className="text-sm transition-colors"
                     style={{ color: "#64748B" }}>
                     {item}

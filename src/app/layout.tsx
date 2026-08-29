@@ -4,13 +4,15 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "BrainEcho | AI로 연결하는 건강, 지식, 관계",
   description:
-    "(주)브레인에코는 AI 음성 건강진단 · 뇌파-음성 융합분석 · 시장 예측·분석 · 법률 리스크 대응 · 가족 관계 플랫폼 · 문화 AI 분석 등 6개 도메인에 걸쳐 9개의 AI 플랫폼을 운영하는 한국 최초 멀티도메인 AI 기술 기업입니다.",
+    "(주)브레인에코는 AX(Healthcare AI) · DX(Intelligence AI) · R&D(도메인 범용 AI 연구) · CONSULTING(공공·정책) 4개 사업분야에 걸쳐 14+ AI 플랫폼·시스템을 운영하는 한국 최초 멀티도메인 AI 기술 기업입니다.",
   keywords: [
     "BrainEcho", "브레인에코", "AI voice biomarker",
     "AI 음성 건강진단", "멀티도메인 AI", "GVC",
     "Good Voice Care", "Chronos AI", "Legal Intelligence",
     "SignalForge", "LinkUs", "NeoSAJU",
     "AI 플랫폼", "디지털 헬스케어", "법률 리스크 대응",
+    "AX", "DX", "R&D", "CONSULTING",
+    "AI 핀테크", "빅데이터 분석", "B2G", "공공 정책",
   ],
   metadataBase: new URL("https://www.brainecho.co.kr"),
   alternates: {

@@ -1,47 +1,58 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Heart, Brain, Users, Award, Building2 } from "lucide-react";
+import { HeartPulse, BrainCircuit, FlaskConical, Landmark } from "lucide-react";
 
 const pillars = [
   {
-    icon: Heart,
-    label: "헬스케어 AI",
+    icon: HeartPulse,
+    label: "AX · Healthcare AI",
     color: "#0047AB",
-    iconColor: "#0047AB",
     platforms: [
       { name: "Good Voice Care (GVC)", desc: "AI 음성 건강진단" },
       { name: "Voice Biomarker Platform", desc: "88개 파라미터 건강 분석" },
-      { name: "EEG Brainwave Fusion", desc: "음성-뇌파 듀얼 시스템" },
+      { name: "EEG Brainwave Fusion", desc: "음성-뇌파 듀얼 바이오마커" },
     ],
-    pitch: "스마트폰 음성 30초로 5개 질환 위험도 스크리닝 + 뇌파 예측. SCI 9편 임상 근거.",
-    market: "글로벌 AI 헬스케어 TAM 2033년 1.6조원 CAGR 21.11%",
+    pitch: "음향학적 특징 기반 질환 위험도 스크리닝 엔진 + 음성–뇌파 이중 바이오마커 융합. SCI 9편 임상 근거.",
+    market: "음성 바이오마커 시장 $3.84B(2026) → $7.77B(2031), CAGR 15.15%",
   },
   {
-    icon: Brain,
-    label: "인텔리전스 AI",
+    icon: BrainCircuit,
+    label: "DX · Intelligence AI",
     color: "#00BFA5",
-    iconColor: "#00BFA5",
     platforms: [
       { name: "Chronos AI Engine", desc: "시계열 추론 엔진" },
-      { name: "SignalForge Engine", desc: "시장 예측·분석" },
-      { name: "Legal Intelligence", desc: "법률 RAG 분석" },
+      { name: "Legal Intelligence", desc: "법률 하이브리드 RAG" },
+      { name: "SignalForge Engine", desc: "시장 신호 분석" },
       { name: "Confluence AI", desc: "기업 지식 엔진" },
     ],
-    pitch: "시계열 추론·시장 예측·법률 리스크 대응·기업 지식 관리 4개 엔진. B2B SaaS 최적화.",
+    pitch: "하이브리드 검색(RAG) 기반 분석 파이프라인 설계 — 법률·시장·지식 도메인 SaaS 운영 및 API 제품화.",
     market: "Enterprise AI 시장 CAGR 37%+ (2026~2035 Gartner)",
   },
   {
-    icon: Users,
-    label: "관계·문화 AI",
-    color: "#FF6B9D",
-    iconColor: "#FF6B9D",
+    icon: FlaskConical,
+    label: "R&D · 도메인 범용 AI 연구",
+    color: "#7C3AED",
     platforms: [
-      { name: "LinkUs — Family OS", desc: "살아있는 가족 운영체제" },
-      { name: "NeoSAJU", desc: "문화 AI 분석" },
+      { name: "BAOS", desc: "회계·경영 분석" },
+      { name: "BHCM", desc: "인사 분석" },
+      { name: "BSAP", desc: "금융 시계열 분석" },
+      { name: "Project Factory", desc: "19 에이전트 SDLC" },
     ],
-    pitch: "한국어 정밀 호칭 엔진 + 전통 명리학 AI 해석. K-Culture 디지털화 선도.",
-    market: "국내 K-AI 플랫폼 시장 고성장 · 한국어 특화 경쟁 우위",
+    pitch: "이종 도메인 패턴학습 및 전이 가능 표현 추출 — 금융·회계·인사·공공·품질 분석모델 연구개발.",
+    market: "Representation Learning · Anomaly Detection",
+  },
+  {
+    icon: Landmark,
+    label: "CONSULTING · 공공·정책",
+    color: "#D97706",
+    platforms: [
+      { name: "Gov Project Platform", desc: "정부과제 AI 분석·추천" },
+      { name: "B2G 진입 전략", desc: "공공시장 진출 컨설팅" },
+      { name: "재정 타당성 분석", desc: "투자심사 지원" },
+    ],
+    pitch: "공공시장(B2G) 진입 전략 · 정책 자문 — 재정투자 타당성, 지방재정 투자심사.",
+    market: "공공 AI 시장 $19.7B(2025) → $115.3B(2035), CAGR 약 19%",
   },
 ];
 
@@ -69,10 +80,10 @@ export default function About() {
             Brand Positioning
           </span>
           <h2 className="section-title mt-6">
-            3-Pillar <span className="gradient-text">AI Platform</span> Strategy
+            4-Business Area <span className="gradient-text">AI Strategy</span>
           </h2>
           <p className="section-subtitle mx-auto">
-            한국 최초 멀티도메인 AI SaaS 기업 — 6개 도메인에 걸쳐 9개의 독립적 AI 플랫폼을 운영합니다.
+            AX · DX · R&D · CONSULTING — 4개 사업분야에 걸쳐 14+ AI 플랫폼·시스템을 운영합니다.
           </p>
         </div>
 
@@ -87,14 +98,15 @@ export default function About() {
           }}>
           <p className="text-lg leading-relaxed" style={{ color: "#334155" }}>
             BrainEcho는{" "}
-            <strong style={{ color: "#0047AB" }}>AI 건강진단·뇌파분석·법률대응·시장예측·지식·관계</strong> 등 6개 도메인에 걸쳐{" "}
-            <strong style={{ color: "#0047AB" }}>9개의 독립적 AI 플랫폼</strong>을 운영하는{" "}
+            <strong style={{ color: "#0047AB" }}>AX(Healthcare AI) · DX(Intelligence AI) · R&D(도메인 범용 AI 연구) · CONSULTING(공공·정책)</strong>{" "}
+            4개 사업분야에 걸쳐{" "}
+            <strong style={{ color: "#0047AB" }}>14+ AI 플랫폼·시스템</strong>을 운영하는{" "}
             <strong style={{ color: "#1e293b" }}>Korea's First Multi-Domain AI SaaS Platform</strong>입니다.
           </p>
         </div>
 
-        {/* 3-Pillar Cards */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        {/* 4-Business Area Cards */}
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           {pillars.map((pillar, i) => (
             <div
               key={pillar.label}
@@ -122,7 +134,7 @@ export default function About() {
                     {pillar.label}
                   </div>
                   <div className="text-xs" style={{ color: "#64748B" }}>
-                    {pillar.platforms.length}개 플랫폼
+                    {pillar.platforms.length}개 시스템
                   </div>
                 </div>
               </div>
@@ -132,6 +144,7 @@ export default function About() {
                 {pillar.platforms.map((p) => (
                   <span
                     key={p.name}
+                    title={p.desc}
                     className="rounded px-2.5 py-1 text-xs"
                     style={{
                       background: `${pillar.color}0D`,
@@ -139,7 +152,7 @@ export default function About() {
                       color: "#475569",
                     }}
                   >
-                    {p.name.split(" ")[0]} {p.name.split(" ")[1] || ""}
+                    {p.name}
                   </span>
                 ))}
               </div>
