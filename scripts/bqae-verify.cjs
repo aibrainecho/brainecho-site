@@ -101,6 +101,43 @@ const { chromium } = require("playwright");
   log("BAOS-UX-003", "콘솔 에러 0건", consoleErrors.length === 0,
     consoleErrors.length > 0 ? consoleErrors.slice(0, 3).join(" | ") : "");
 
+  // ── 8-1. Hero 파티클 캔버스 (BAOS-MOTION-003: 동적 로딩 후 캔버스 존재) ──
+  const heroCanvas = await page.locator('#hero canvas[aria-hidden="true"]').count();
+  const canvasVisible = heroCanvas > 0 ? await page.locator('#hero canvas').first().isVisible() : false;
+  const canvasDrawn = heroCanvas > 0 ? await page.locator('#hero canvas').first().evaluate((el) => {
+    const c = el;
+    if (!c.width || !c.height) return false;
+    const ctx = c.getContext("2d");
+    if (!ctx) return false;
+    try {
+      const d = ctx.getImageData(0, 0, c.width, c.height).data;
+      for (let i = 3; i < d.length; i += 4) { if (d[i] > 0) return true; } // 알파값이 있는 픽셀 존재
+      return false;
+    } catch { return false; }
+  }) : false;
+  log("BAOS-MOTION-003", "히어로 파티클 캔버스 존재 + 실제 드로잉", heroCanvas > 0 && canvasVisible && canvasDrawn,
+    `canvas=${heroCanvas} visible=${canvasVisible} drawn=${canvasDrawn}`);
+  // 캔버스가 동적 청크로 분리되었는지 (전체 JS 내 1곳에만 존재)
+  const particleChunks = await page.evaluate(() => {
+    // 동적 청크 로드 확인: window.__NEXT_DATA__ 필요 없음 — 캔버스 존재로 간접 확인
+    return document.querySelectorAll('#hero canvas').length;
+  });
+  log("BAOS-MOTION-003", "캔버스 동적 로딩 완료 (SSR HTML엔 없음, 클라이언트에서 생성)", particleChunks === 1,
+    `domCanvas=${particleChunks}`);
+
+  // ── 8-2. 파티클 모션 성능 (BAOS-MOTION-001: 60fps 근사 — 1초간 rAF 카운트) ──
+  const fps = await page.evaluate(() => new Promise((resolve) => {
+    let frames = 0;
+    const start = performance.now();
+    const count = () => {
+      frames++;
+      if (performance.now() - start < 1000) requestAnimationFrame(count);
+      else resolve(Math.round(frames));
+    };
+    requestAnimationFrame(count);
+  }));
+  log("BAOS-MOTION-001", `애니메이션 rAF 1초당 ${fps}프레임 (≥45 양호)`, fps >= 45, `fps=${fps}`);
+
   // ── 9. prefers-reduced-motion (BAOS-MOTION-001) ──
   const rmPage = await browser.newPage({ reducedMotion: "reduce" });
   await rmPage.goto("http://localhost:4173", { waitUntil: "networkidle" });

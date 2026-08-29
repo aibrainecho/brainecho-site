@@ -1,7 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ChevronDown, HeartPulse, BrainCircuit, FlaskConical, Landmark } from "lucide-react";
+
+// BAOS-MOTION-003: 히어로 파티클을 동적 import(ssr:false)로 지연 로딩 → LCP 영향 0
+const HeroParticles = dynamic(() => import("./HeroParticles"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const pillars = [
   { icon: HeartPulse, label: "AX · Healthcare AI", color: "#0047AB", count: 3 },
@@ -51,6 +58,7 @@ export default function Hero() {
       <div
         className="absolute inset-0 bg-gradient-to-b from-white to-gray-50"
       >
+        <HeroParticles />
         <div className="absolute -left-32 -top-32 h-[600px] w-[600px] animate-float rounded-full opacity-[0.08] blur-[120px]"
           style={{ background: "radial-gradient(circle, rgba(0,71,171,0.10) 0%, transparent 70%)" }}
         />
