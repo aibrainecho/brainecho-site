@@ -2,6 +2,19 @@
 
 버전 태그(vX.Y.Z)와 1:1 대응됩니다. `git tag -l -n` 으로 각 버전 요약을 즉시 확인할 수 있습니다.
 
+## v4.1.0 — 2026-08-30
+- [추가] **사업분야 확장형 카드(Expand & Close)** — Services 섹션 인터랙티브 개편
+  - 미니멀 카드 4개 → 클릭 시 전체 화면 다이얼로그로 확장 → 플랫폼 상세·시장 지표 표시 → 닫기
+  - 접근성: ESC 닫기, 포커스 트랩, 포커스 복원, `role="dialog"`+`aria-modal`+`aria-expanded`, 배경 스크롤 잠금
+- [추가] **기술 레이어 구조(Layered Open)** — Technology 섹션
+  - AI Inference → Data Infra → Cloud Ops → Security 4개 레이어가 스크롤 시 아래에서 위로 열림, 호버/클릭 시 상세 펼침
+  - CSS 3D(perspective/translateZ) 기반 — WebGL/Three.js 의존성 0
+- [추가] **BQAE 모션·UX 규칙군 문서화** — docs/06-bqae-motion.md (BAOS-MOTION-001~003, BAOS-UX-001~003)
+- [추가] **BQAE 검증 스크립트** — scripts/bqae-verify.cjs (Playwright 동작 검증: 확장/닫기/ESC/포커스 트랩/console 에러/reduced-motion)
+- [수정] **연혁(History)** — AI 핀테크 시스템 개발 날짜 2026.05 → **2026.07** (핵심성과 표시 삭제), 공식 홈페이지 전면 리뉴얼 항목 삭제
+- [검증] BAOS-HTML-001/002/004 구조 검증 통과 · BQAE 동작 검증 10/10 통과 · 번들 JS gzip 196.9KB (< 200KB 기준)
+- [운영] 구현 기술은 의존성 0 원칙(CSS transition/Canvas) — GSAP·Three.js 미도입
+
 ## v4.0.0 — 2026-08-29
 - [추가] 사업분야(Business Areas) 4개 영역 체계로 재구성 — Services 섹션 전면 개편
   - 01 AX — Healthcare AI (음향 스크리닝 엔진 · 음성-뇌파 이중 바이오마커 / Voice Biomarker · EEG Fusion · Edge AI)

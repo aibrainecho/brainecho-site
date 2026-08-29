@@ -33,17 +33,10 @@ const historyItems = [
     highlight: false,
   },
   {
-    date: "2026.05",
+    date: "2026.07",
     icon: Sparkles,
     title: "AI 핀테크 시스템 개발",
     desc: "빅데이터 분석시스템 — 금융·시장 데이터 분석 인프라 구축",
-    highlight: true,
-  },
-  {
-    date: "2026.08",
-    icon: Rocket,
-    title: "공식 홈페이지 전면 리뉴얼",
-    desc: "사업분야 4개 영역(AX · DX · R&D · CONSULTING) 체계로 개편",
     highlight: false,
   },
 ];

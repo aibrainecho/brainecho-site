@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Shield, Cpu, Cloud, Lock } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Shield, Cpu, Cloud, Lock, ChevronDown } from "lucide-react";
 
 function EcosystemDiagram() {
   return (
@@ -135,32 +135,195 @@ function EcosystemDiagram() {
   );
 }
 
-const capabilities = [
+const layers = [
   {
+    id: "L1",
     icon: Cpu,
     title: "AI Inference Engine",
+    short: "멀티 LLM 클러스터 · 딥러닝 추론 · RAG",
+    color: "#0047AB",
     desc: "고성능 대규모 언어모델 클러스터 기반 10종 모델 운영. 멀티 LLM 지능형 폴백 체계로 99.9% 가용성을 보장하며, 딥러닝 추론 파이프라인과 RAG 지식 검색을 결합하여 도메인별 최적화된 AI 분석을 제공합니다.",
     items: ["10+ LLM Models", "Smart Fallback", "Deep Learning Pipeline", "RAG Knowledge Retrieval"],
   },
   {
+    id: "L2",
     icon: Cloud,
     title: "Data Infrastructure",
+    short: "벡터 + RDB 하이브리드 저장소 · 실시간 동기화",
+    color: "#0891B2",
     desc: "벡터 데이터베이스와 관계형 데이터베이스를 통합한 하이브리드 저장소 아키텍처. 분산 캐시 레이어로 초저지연 응답을 구현하며, 실시간 증분 데이터 동기화와 객체 스토리지 연동을 제공합니다.",
     items: ["Vector + RDB Integration", "Distributed Cache", "Object Storage", "Real-time Sync"],
   },
   {
+    id: "L3",
     icon: Shield,
     title: "Cloud Operations",
-    desc: "컨테이너 기반 마이크로서비스 아키텍처로 9개 플랫폼을 표준화하여 배포합니다. 멀티 클라우드 환경에서 무중단 자동 복구, 모니터링, 장애 격리 체계를 갖추고 있으며 6종 기업 인증을 보유하고 있습니다.",
+    short: "컨테이너 오케스트레이션 · 무중단 자동 복구",
+    color: "#7C3AED",
+    desc: "컨테이너 기반 마이크로서비스 아키텍처로 14+ 시스템을 표준화하여 배포합니다. 멀티 클라우드 환경에서 무중단 자동 복구, 모니터링, 장애 격리 체계를 갖추고 있으며 6종 기업 인증을 보유하고 있습니다.",
     items: ["Container Orchestration", "Auto-Recovery", "Monitoring + Alerts", "6 Certifications"],
   },
   {
+    id: "L4",
     icon: Lock,
     title: "Security Architecture",
+    short: "종단간 암호화 · SSOT 키 관리 · ISO 27001",
+    color: "#D97706",
     desc: "종단간 데이터 암호화, 토큰 기반 접근 제어, SSOT 키 관리 체계 등 ISO 27001 표준을 준수하는 통합 보안 아키텍처를 전 서비스에 적용합니다. Cloudflare WAF + 글로벌 CDN으로 네트워크 수준 보호를 제공합니다.",
     items: ["End-to-End Encryption", "Token-Based Auth", "SSOT Key Management", "WAF + Global CDN"],
   },
 ];
+
+/* ── 레이어 스택 (Layered Open) ── */
+function LayeredStack() {
+  const [inView, setInView] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const isOpen = useCallback(
+    (i: number) => hovered === i || expanded === i,
+    [hovered, expanded]
+  );
+
+  return (
+    <div ref={ref} className="relative mx-auto mt-12 max-w-4xl" style={{ perspective: "1400px" }}>
+      {/* 레이어 수직 연결선 */}
+      <div className="absolute left-6 top-8 bottom-8 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent" aria-hidden="true" />
+
+      <div className="flex flex-col" style={{ transformStyle: "preserve-3d" }}>
+        {layers.map((layer, i) => {
+          const open = isOpen(i);
+          return (
+            <div
+              key={layer.id}
+              className="relative pl-14"
+              style={{
+                marginTop: i === 0 ? 0 : "-14px",
+                zIndex: open ? 30 : 10 - i,
+                transform: open ? "translateZ(40px)" : "translateZ(0)",
+                transition: reducedMotion ? "none" : "transform 0.35s ease-out",
+              }}
+            >
+              {/* 레이어 번호 노드 */}
+              <div
+                className="absolute left-0 top-6 flex h-11 w-11 items-center justify-center rounded-full text-xs font-black text-white"
+                style={{
+                  background: `linear-gradient(135deg, ${layer.color}, ${layer.color}CC)`,
+                  boxShadow: open ? `0 0 0 5px ${layer.color}22` : "0 2px 6px rgba(0,0,0,0.12)",
+                  transition: reducedMotion ? "none" : "box-shadow 0.3s",
+                }}
+                aria-hidden="true"
+              >
+                {layer.id}
+              </div>
+
+              {/* 레이어 바 */}
+              <button
+                type="button"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(i)}
+                onBlur={() => setHovered(null)}
+                onClick={() => setExpanded(expanded === i ? null : i)}
+                aria-expanded={expanded === i}
+                className="group relative w-full rounded-2xl border bg-white p-6 text-left transition-all duration-300 focus:outline-none focus-visible:ring-2"
+                style={{
+                  borderColor: open ? layer.color : "#e2e8f0",
+                  borderLeft: `5px solid ${layer.color}`,
+                  boxShadow: open
+                    ? `0 20px 40px rgba(0,0,0,0.14), 0 0 0 1px ${layer.color}22`
+                    : "0 1px 3px rgba(0,0,0,0.05)",
+                  opacity: inView ? 1 : 0,
+                  transform: inView
+                    ? (open ? "translateY(-6px) scale(1.01)" : "translateY(0)")
+                    : `translateY(${44 + i * 18}px)`,
+                  transition: reducedMotion ? "none" : "all 0.3s ease-out",
+                  transitionDelay: `${i * 110}ms`,
+                }}
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
+                      style={{ background: `${layer.color}15`, color: layer.color }}
+                    >
+                      <layer.icon size={22} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-bold" style={{ color: "#1e293b" }}>{layer.title}</h3>
+                        <span className="rounded-full px-2 py-0.5 text-[10px] font-black tracking-widest"
+                          style={{ background: `${layer.color}15`, color: layer.color }}>
+                          LAYER {layer.id.slice(1)}
+                        </span>
+                      </div>
+                      <div className="mt-0.5 text-xs" style={{ color: "#64748B" }}>{layer.short}</div>
+                    </div>
+                  </div>
+                  <ChevronDown
+                    size={18}
+                    className="shrink-0 transition-transform duration-300"
+                    style={{ color: layer.color, transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+                  />
+                </div>
+
+                {/* 확장 상세 (팝업 오버레이) */}
+                <div
+                  className="mt-4 overflow-hidden rounded-xl border"
+                  style={{
+                    borderColor: `${layer.color}33`,
+                    background: `linear-gradient(180deg, ${layer.color}0D, ${layer.color}04)`,
+                    maxHeight: open ? "220px" : "0px",
+                    opacity: open ? 1 : 0,
+                    transition: reducedMotion ? "none" : "max-height 0.35s ease-out, opacity 0.3s ease-out",
+                  }}
+                >
+                  <div className="p-4">
+                    <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>{layer.desc}</p>
+                    <div className="mt-3 grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+                      {layer.items.map((item) => (
+                        <div key={item}
+                          className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-semibold"
+                          style={{ background: "#ffffff", border: `1px solid ${layer.color}22`, color: "#475569" }}>
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: layer.color }} />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 힌트 */}
+      <p className="mt-6 text-center text-xs" style={{ color: "#94A3B8" }}>
+        💡 레이어에 마우스를 올리거나 클릭하면 상세 구조가 열립니다
+      </p>
+    </div>
+  );
+}
 
 export default function Technology() {
   const [isVisible, setIsVisible] = useState(false);
@@ -195,29 +358,19 @@ export default function Technology() {
           <EcosystemDiagram />
         </div>
 
-        {/* Capability Cards */}
-        <div className={`mt-12 grid gap-6 md:grid-cols-2 ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`} style={{ transitionDelay: "0.3s", transition: "all 0.7s" }}>
-          {capabilities.map((cap, i) => (
-            <div key={cap.title}
-              className="group rounded-2xl border border-gray-100 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-              style={{ transitionDelay: `${400 + i * 100}ms`, transition: "all 0.6s" }}>
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                <cap.icon size={22} />
-              </div>
-              <h3 className="mb-2 text-lg font-bold text-gray-900">{cap.title}</h3>
-              <p className="mb-4 text-sm leading-relaxed text-gray-600">{cap.desc}</p>
-              <div className="grid grid-cols-2 gap-1.5">
-                {cap.items.map((item) => (
-                  <div key={item} className="flex items-center gap-1.5 rounded-lg bg-gray-50 px-2.5 py-1.5 text-xs font-medium text-gray-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brand-400" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+        {/* Layered Architecture (Layered Open) */}
+        <div className={`mt-16 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+          style={{ transitionDelay: "0.25s", transition: "all 0.7s" }}>
+          <div className="mb-2 text-center">
+            <span className="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-600">Layered Open Architecture</span>
+          </div>
+          <h3 className="section-title mt-4 text-center text-2xl">
+            <span className="gradient-text">기술 레이어</span> — Inference → Data → Security
+          </h3>
+          <p className="section-subtitle mx-auto">
+            AI Core를 구성하는 4개 레이어가 아래에서 위로 열립니다. 마우스를 올리면 상세 구조를 확인할 수 있습니다.
+          </p>
+          <LayeredStack />
         </div>
       </div>
     </section>
